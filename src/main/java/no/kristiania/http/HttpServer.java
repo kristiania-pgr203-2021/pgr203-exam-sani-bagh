@@ -96,6 +96,6 @@ public class HttpServer {
     }
 
     public void addController(String path, HttpController controller) {
-        this.controllers.put(path, controller);
+        controllers.put(path, controller);
     }
 }
