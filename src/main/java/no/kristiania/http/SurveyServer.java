@@ -20,19 +20,19 @@ public class SurveyServer {
         HttpServer httpServer = new HttpServer(8080);
         httpServer.addController("/api/questions", new SaveSureveyController(surveyDao));
         httpServer.addController("/api/index", new RetrieveSurveyController(surveyDao));
-        logger.info("Starting http://localhost:{}/newQuestionnaire.html", httpServer.getPort());
+        logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 
     private static DataSource createDataSource() throws IOException {
         Properties properties = new Properties();
-        try (FileReader reader = new FileReader("pgr-203.properties")) {
+        try (FileReader reader = new FileReader("pgr203.properties")) {
             properties.load(reader);
         }
 
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(properties.getProperty("db.url"));
-        dataSource.setUser(properties.getProperty("db.user"));
-        dataSource.setPassword(properties.getProperty("db.password"));
+        dataSource.setUrl(properties.getProperty("dataSource.url", "jdbc:postgresql://localhost:5432/survey_db"));
+        dataSource.setUser(properties.getProperty("dataSource.user", "survey_dbuser"));
+        dataSource.setPassword(properties.getProperty("dataSource.password"));
         Flyway.configure().dataSource(dataSource).load().migrate();
         return dataSource;
     }

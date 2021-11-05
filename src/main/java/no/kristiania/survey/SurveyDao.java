@@ -1,19 +1,29 @@
 package no.kristiania.survey;
 
+import org.flywaydb.core.api.callback.Context;
+
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SurveyDao {
+public class SurveyDao extends Dao{
 
     private final DataSource dataSource;
 
     public SurveyDao(DataSource dataSource) {
+        super(dataSource);
         this.dataSource = dataSource;
     }
 
-        public List<Survey> listAll() throws SQLException {
+    @Override
+    public Object retrieve(long id) {
+        
+        return null;
+    }
+
+    public List<Survey> listAll() throws SQLException {
 
             try (Connection connection = dataSource.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select * from survey")) {
@@ -52,7 +62,7 @@ public class SurveyDao {
 
 
 
-    private Survey readFromResultSet(ResultSet rs) throws SQLException {
+    public Survey readFromResultSet(ResultSet rs) throws SQLException {
     Survey survey = new Survey();
     survey.setId(rs.getLong("id"));
     survey.setTitle(rs.getString("title"));
