@@ -6,15 +6,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div>
+  <button class="btn"><a href="."></a>Return to front page</button>
+</div>
 <h1>Add option to question</h1>
 <form method="GET" action="/api/tasks">
-  <label>Question: <select id="questions" name="questions" /></label>
-  <label>Option: <input type="text" name="option "/></label>
-  <button>Add</button>
+  <div class="select_div">
+    Question: <select id="questions" name="questions" />
+  </div>
+  <div>
+    Option: <input type="text" name="option "/>
+  </div>
+  <button class="add_btn">Add</button>
 </form>
-<div>
-  <a href=".">Return to front page</a>
-</div>
 </body>
 <script>
   fetch("/api/questionOptions")

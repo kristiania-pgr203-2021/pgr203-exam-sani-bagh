@@ -6,16 +6,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div>
+  <button class="btn"><a href="index.html"></a>Return to front page</button>
+  <button class="btn"><a href="addOption.html"></a>Add answer alternatives to questions</button>
+</div>
 <h1>Add question member</h1>
 <form method="POST" action="/api/questions">
-  <label>Question title: <input type="text" name="title" /></label>
-  <label>Question text: <input type="text" name="text" /></label>
-  <label>Label for 1: <input type="text" name="low_label" /></label>
-  <label>Label for 5: <input type="text" name="high_label" /></label>
-  <button>Add</button>
+  <div>
+    Question title: <input type="text" name="title" placeholder="Questionnaire title....."/>
+  </div>
+  <div>
+    Question text: <input type="text" name="text" placeholder="Question text......"/>
+  </div>
+  <div>
+    Label for 1: <input type="text" name="low_label" />
+  </div>
+  <div>
+    Label for 5: <input type="text" name="high_label" />
+  </div>
+  <button class="add_btn">Add</button>
 </form>
-<div>s
-  <a href="index.html">Return to front page</a>
-</div>
 </body>
+<script>
+  fetch("/api/addQuestion")
+          .then(function(response) {
+            return response.text();
+          }).then(function(text) {
+    document.getElementById("questions").innerHTML = text;
+  });
+</script>
 </html>
