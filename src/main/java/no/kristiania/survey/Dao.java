@@ -13,7 +13,7 @@ public abstract class Dao {
         this.dataSource = dataSource;
     }
 
-    public abstract Object retrieve(long id);
+    public abstract Object retrieve(long id) throws SQLException;
 
     public abstract Object readFromResultSet(ResultSet rs) throws SQLException;
 

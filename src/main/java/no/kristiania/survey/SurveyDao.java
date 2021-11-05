@@ -18,9 +18,20 @@ public class SurveyDao extends Dao{
     }
 
     @Override
-    public Object retrieve(long id) {
+    public Survey retrieve(long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from survey where survey_id = ?")) {
+                statement.setLong(1, id);
+
+                try (ResultSet rs = statement.executeQuery()) {
+                    rs.next();
+
+                    return readFromResultSet(rs);
+                }
+            }
+        }
         
-        return null;
+
     }
 
     public List<Survey> listAll() throws SQLException {
@@ -53,7 +64,7 @@ public class SurveyDao extends Dao{
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    survey.setId(rs.getLong("id"));
+                    survey.setId(rs.getLong("survey_id"));
                 }
             }
         }
@@ -64,7 +75,7 @@ public class SurveyDao extends Dao{
 
     public Survey readFromResultSet(ResultSet rs) throws SQLException {
     Survey survey = new Survey();
-    survey.setId(rs.getLong("id"));
+    survey.setId(rs.getLong("survey_id"));
     survey.setTitle(rs.getString("title"));
 
         return survey;
