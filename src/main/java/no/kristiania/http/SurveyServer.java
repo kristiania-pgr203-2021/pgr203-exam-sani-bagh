@@ -25,7 +25,7 @@ public class SurveyServer {
 
     private static DataSource createDataSource() throws IOException {
         Properties properties = new Properties();
-        try (FileReader reader = new FileReader("source.properties")) {
+        try (FileReader reader = new FileReader("pgr-203.properties")) {
             properties.load(reader);
         }
 
