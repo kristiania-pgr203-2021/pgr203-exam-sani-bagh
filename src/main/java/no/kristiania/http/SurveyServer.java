@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import no.kristiania.survey.QuestionDao;
 import no.kristiania.survey.SurveyDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -16,9 +17,11 @@ public class SurveyServer {
 
     public static void main(String[] args) throws IOException {
         DataSource dataSource = createDataSource();
+        QuestionDao questionDao = new QuestionDao(dataSource);
+
         SurveyDao surveyDao = new SurveyDao(dataSource);
-        HttpServer httpServer = new HttpServer(8080);
-        httpServer.addController("/api/questions", new SaveSurveyController(surveyDao));
+        HttpServer httpServer = new HttpServer(1962);
+        httpServer.addController("/api/questionOptions", new QuestionOptionsController(questionDao));
         httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }

@@ -31,7 +31,7 @@ public class QuestionDao extends Dao{
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    question.setQuestionId(rs.getLong("question_id"));
+                    question.setQuestionId(rs.getLong("questionId"));
                 }
             }
         }
@@ -39,13 +39,27 @@ public class QuestionDao extends Dao{
     @Override
     public Question retrieve(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id=?")) {
                 statement.setLong(1, id);
 
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
 
                     return readFromResultSet(rs);
+                }
+            }
+        }
+    }
+
+    public List<Question> listQuestionText() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<Question> result = new ArrayList<>();
+                    while (rs.next()) {
+                        result.add(readFromResultSet(rs));
+                    }
+                    return result;
                 }
             }
         }
@@ -66,6 +80,7 @@ public class QuestionDao extends Dao{
             }
         }
     }
+
 
     @Override
     public Question readFromResultSet(ResultSet rs) throws SQLException {
