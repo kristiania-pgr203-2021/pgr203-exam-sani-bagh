@@ -18,8 +18,8 @@ public class SurveyServer {
         DataSource dataSource = createDataSource();
         SurveyDao surveyDao = new SurveyDao(dataSource);
         HttpServer httpServer = new HttpServer(8080);
-        httpServer.addController("/api/questions", new SaveSureveyController(surveyDao));
-        httpServer.addController("/api/index", new RetrieveSurveyController(surveyDao));
+        httpServer.addController("/api/questions", new SaveSurveyController(surveyDao));
+        httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 

@@ -6,11 +6,11 @@ import no.kristiania.survey.SurveyDao;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
-public class RetrieveSurveyController implements HttpController {
+public class RetrieveSurveysController implements HttpController {
 
     private final SurveyDao surveyDao;
 
-    public RetrieveSurveyController(SurveyDao surveyDao) {
+    public RetrieveSurveysController(SurveyDao surveyDao) {
         this.surveyDao = surveyDao;
     }
 

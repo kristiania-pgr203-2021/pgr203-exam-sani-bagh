@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class SaveSureveyController implements HttpController{
+public class SaveSurveyController implements HttpController{
     private final SurveyDao surveyDao;
 
-    public SaveSureveyController(SurveyDao surveyDao) {
+    public SaveSurveyController(SurveyDao surveyDao) {
         this.surveyDao = surveyDao;
     }
 
