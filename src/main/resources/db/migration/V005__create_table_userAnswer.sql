@@ -4,3 +4,5 @@ create table userAnswer (
     answerID int references answerAlternatives(answer_id),
     survey_id int references survey(survey_id);
 )
+
+
