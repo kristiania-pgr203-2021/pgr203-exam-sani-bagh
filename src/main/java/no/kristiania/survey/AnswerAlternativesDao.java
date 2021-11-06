@@ -41,6 +41,11 @@ public class AnswerAlternativesDao extends AbsractDao<AnswerAlternatives>{
             }
         }
     }
+
+    @Override
+    public void save(AnswerAlternatives answerAlternatives) {
+
+    }
     /*
 
     private final DataSource dataSource;

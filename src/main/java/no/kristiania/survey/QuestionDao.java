@@ -32,8 +32,47 @@ public class QuestionDao extends AbsractDao<Question>{
         return null;
     }
 
+    @Override
+    public void save(AnswerAlternatives answerAlternatives) {
+
+    }
 
 
+    public List<String> listQuestionText() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<String> result = new ArrayList<>();
+                    while (rs.next()) {
+                        result.add(rs.getString("text"));
+                    }
+                    return result;
+                }
+            }
+        }
+    }
+
+    public void save(Question question) throws SQLException {
+
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "insert into question(title, text) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+
+            )) {
+                statement.setString(1, question.getTitle());
+                statement.setString(2, question.getText());
+
+
+                statement.executeUpdate();
+
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    rs.next();
+                    question.setQuestionId(rs.getLong("question_id"));
+                }
+            }
+        }
+    }
 
 
 

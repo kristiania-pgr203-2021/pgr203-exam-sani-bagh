@@ -48,6 +48,8 @@ public abstract class AbsractDao<T> {
     }
 
     public abstract AnswerAlternatives retrieve(long id) throws SQLException;
+
+    public abstract void save(AnswerAlternatives answerAlternatives);
 }
 
 

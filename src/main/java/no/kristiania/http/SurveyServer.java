@@ -23,7 +23,7 @@ public class SurveyServer {
         AnswerAlternativesDao answerAlternativesDao = new AnswerAlternativesDao(dataSource);
 
         HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController("/api/questions", new CreateQuestionController(questionDao));
+        httpServer.addController("/api/questions", new ListQuestionsController(questionDao));
         httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         httpServer.addController("/api/questionOptions", new QuestionOptionsController(questionDao));
         httpServer.addController("/api/tasks", new CreateAnswerOptionsController(answerAlternativesDao));
