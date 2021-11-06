@@ -22,6 +22,6 @@ public class QuestionOptionsController implements HttpController{
             responseText += "<option value=" + (value++) + ">" + s + "</option>";
         }
 
-        return new HttpMessage("HTTP/1.1 200 OK", responseText);
+        return new HttpMessage("HTTP/1.1 200 OK", java.net.URLDecoder.decode(responseText, "UTF-8"), "text/html; charset=utf-8");
     }
 }

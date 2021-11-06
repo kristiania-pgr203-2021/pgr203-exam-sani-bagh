@@ -7,7 +7,7 @@ public class AnswerAlternativesDao extends Dao{
 
     private final DataSource dataSource;
 
-    protected AnswerAlternativesDao(DataSource dataSource) {
+    public AnswerAlternativesDao(DataSource dataSource) {
         super(dataSource);
         this.dataSource = dataSource;
     }
@@ -15,7 +15,8 @@ public class AnswerAlternativesDao extends Dao{
     @Override
     public AnswerAlternatives retrieve(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from answerAlternatives where answer_id = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from answerAlternatives inner join question on " +
+                    " question.question_id = answerAlternatives.question_ID where answer_id = ?")) {
                 statement.setLong(1, id);
 
                 try (ResultSet rs = statement.executeQuery()) {
@@ -54,6 +55,7 @@ public class AnswerAlternativesDao extends Dao{
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
         answerAlternatives.setAnswerId(rs.getLong("answer_id"));
         answerAlternatives.setAnswerText(rs.getString("answer_text"));
+        //answerAlternatives.setQuestion_ID(rs.getLong("question_ID"));
 
 
         return answerAlternatives;
