@@ -18,12 +18,13 @@ public class SurveyServer {
     public static void main(String[] args) throws IOException {
         DataSource dataSource = createDataSource();
         QuestionDao questionDao = new QuestionDao(dataSource);
-
         SurveyDao surveyDao = new SurveyDao(dataSource);
+
         HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController("/api/questionOptions", new QuestionOptionsController(questionDao));
+        httpServer.addController("/api/questions", new CreateQuestionController(questionDao));
         httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
+
     }
 
     private static DataSource createDataSource() throws IOException {

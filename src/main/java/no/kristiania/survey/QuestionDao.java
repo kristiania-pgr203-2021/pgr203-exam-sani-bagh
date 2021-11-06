@@ -31,7 +31,7 @@ public class QuestionDao extends Dao{
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    question.setQuestionId(rs.getLong("questionId"));
+                    question.setQuestionId(rs.getLong("question_id"));
                 }
             }
         }
