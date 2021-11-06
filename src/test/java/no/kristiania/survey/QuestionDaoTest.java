@@ -11,6 +11,7 @@ public class QuestionDaoTest {
 
     private QuestionDao dao =new QuestionDao(TestData.testDataSource());
 
+    /*
     @Test
     void shouldRetrieveSavedQuestion() throws SQLException {
         Question question = exampleQuestion();
@@ -21,6 +22,8 @@ public class QuestionDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(question);
     }
+
+     */
 
     @Test
     void shouldListAllQuestions() throws SQLException {

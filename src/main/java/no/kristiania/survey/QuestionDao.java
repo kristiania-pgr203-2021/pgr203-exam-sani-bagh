@@ -5,7 +5,40 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDao extends Dao{
+public class QuestionDao extends AbsractDao<Question>{
+
+
+    public QuestionDao(DataSource dataSource) {
+        super(dataSource);
+    }
+
+    @Override
+    protected Question readFromResultSet(ResultSet rs) throws SQLException {
+        Question question = new Question();
+        question.setQuestionId(rs.getLong("question_id"));
+        question.setTitle(rs.getString("title"));
+        question.setText(rs.getString("text"));
+
+        return question;
+    }
+
+    @Override
+    public List<Question> listAll() throws SQLException {
+        return super.listAll("SELECT * FROM question");
+    }
+
+    @Override
+    public AnswerAlternatives retrieve(long id) throws SQLException {
+        return null;
+    }
+
+
+
+
+
+
+
+    /*
 
     private final DataSource dataSource;
 
@@ -92,6 +125,8 @@ public class QuestionDao extends Dao{
 
         return question;
     }
+
+     */
 
 
 }
