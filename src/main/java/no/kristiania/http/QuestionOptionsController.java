@@ -18,8 +18,8 @@ public class QuestionOptionsController implements HttpController{
         String responseText = "";
 
         int value = 1;
-        for (Question question: questionDao.listQuestionText()) {
-            responseText += "<option value=" + (value++) + ">" + question + "</option>";
+        for (String s: questionDao.listQuestionText()) {
+            responseText += "<option value=" + (value++) + ">" + s + "</option>";
         }
 
         return new HttpMessage("HTTP/1.1 200 OK", responseText);

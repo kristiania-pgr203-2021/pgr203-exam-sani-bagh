@@ -51,19 +51,20 @@ public class QuestionDao extends Dao{
         }
     }
 
-    public List<Question> listQuestionText() throws SQLException {
+    public List<String> listQuestionText() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
                 try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<Question> result = new ArrayList<>();
+                    ArrayList<String> result = new ArrayList<>();
                     while (rs.next()) {
-                        result.add(readFromResultSet(rs));
+                        result.add(rs.getString("text"));
                     }
                     return result;
                 }
             }
         }
     }
+
 
 
     public List<Question> listAll() throws SQLException {
