@@ -32,20 +32,18 @@ public class QuestionDao extends AbsractDao<Question>{
         return null;
     }
 
-
-
-
-
-
-
-    /*
-
-    private final DataSource dataSource;
-
-    public QuestionDao(DataSource dataSource) {
-
-        super(dataSource);
-        this.dataSource=dataSource;
+    public List<String> listQuestionText() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<String> result = new ArrayList<>();
+                    while (rs.next()) {
+                        result.add(rs.getString("text"));
+                    }
+                    return result;
+                }
+            }
+        }
     }
 
     public void save(Question question) throws SQLException {
@@ -69,6 +67,23 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
+
+
+
+
+
+
+    /*
+
+    private final DataSource dataSource;
+
+    public QuestionDao(DataSource dataSource) {
+
+        super(dataSource);
+        this.dataSource=dataSource;
+    }
+
+
     @Override
     public Question retrieve(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -83,22 +98,6 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
-
-    public List<String> listQuestionText() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<String> result = new ArrayList<>();
-                    while (rs.next()) {
-                        result.add(rs.getString("text"));
-                    }
-                    return result;
-                }
-            }
-        }
-    }
-
-
 
     public List<Question> listAll() throws SQLException {
 
