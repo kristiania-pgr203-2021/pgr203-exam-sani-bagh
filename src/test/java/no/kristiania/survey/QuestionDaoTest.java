@@ -37,10 +37,28 @@ public class QuestionDaoTest {
                 .contains(question.getQuestionId(), questionTwo.getQuestionId());
     }
 
+    @Test
+    void shouldListQuestionsByTitle() throws SQLException {
+        Question questionOne = new Question();
+        questionOne.setTitle("title");
+        dao.save(questionOne);
+        Question questionTwo = new Question();
+        questionTwo.setTitle(questionOne.getTitle());
+        dao.save(questionTwo);
+
+        Question nonMatchingQuestion = new Question();
+        dao.save(nonMatchingQuestion);
+
+
+        assertThat(dao.listQuestionByTitle(questionOne.getTitle()))
+                .extracting(Question::getQuestionId)
+                .contains(questionOne.getQuestionId(), questionTwo.getQuestionId())
+                .doesNotContain(nonMatchingQuestion.getQuestionId());
+    }
+
     public static Question exampleQuestion() {
         Question question = new Question();
-        question.setQuestionId(TestData.pickOneLong(1, 2, 3, 4));
-        question.setTitle(TestData.pickOne("Question 1", "Question 2", "Question 3", "Question 4"));
+        question.setTitle(TestData.pickOne("Title 1", "Title 2", "Title 3", "Title 4"));
         question.setText(TestData.pickOne("Question 1", "Question 2", "Question 3", "Question 4"));
 
         return question;

@@ -16,20 +16,23 @@ public abstract class AbsractDao<T> {
     }
 
 
-    /*
-    protected T retrieve(String sql, long id) throws SQLException {
+
+    protected T retrieveAbstract(String sql, long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) return readFromResultSet(rs);
-                    else return null;
+                    if (rs.next()) {
+                        return readFromResultSet(rs);
+                    }else {
+                        return null;
+                    }
+
                 }
             }
         }
     }
 
-     */
 
 
     protected abstract T readFromResultSet(ResultSet rs) throws SQLException;
@@ -37,7 +40,7 @@ public abstract class AbsractDao<T> {
     public abstract List<T> listAll() throws SQLException;
 
 
-    protected List<T> listAll(String sql) throws SQLException {
+    protected List<T> listAllWithPreparedStatement(String sql) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rs = statement.executeQuery()) {

@@ -24,22 +24,11 @@ public class QuestionDao extends AbsractDao<Question>{
 
     @Override
     public List<Question> listAll() throws SQLException {
-        return super.listAll("SELECT * FROM question");
+        return super.listAllWithPreparedStatement("SELECT * FROM question");
     }
 
-    @Override
     public Question retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id = ?")) {
-                statement.setLong(1, id);
-
-                try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-
-                    return readFromResultSet(rs);
-                }
-            }
-        }
+        return retrieveAbstract("select * from question where question_id = ?", id);
     }
 
     public List<String> listQuestionText() throws SQLException {
@@ -51,6 +40,22 @@ public class QuestionDao extends AbsractDao<Question>{
                         result.add(rs.getString("text"));
                     }
                     return result;
+                }
+            }
+        }
+    }
+
+    public List<Question> listQuestionByTitle(String title) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where title= ?")) {
+                statement.setString(1, title);
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<Question> questions = new ArrayList<>();
+                    while (rs.next()) {
+                        questions.add(readFromResultSet(rs));
+                }
+
+                    return questions;
                 }
             }
         }
@@ -79,63 +84,6 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
 
-
-
-
-
-    /*
-
-    private final DataSource dataSource;
-
-    public QuestionDao(DataSource dataSource) {
-
-        super(dataSource);
-        this.dataSource=dataSource;
-    }
-
-
-    @Override
-    public Question retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id=?")) {
-                statement.setLong(1, id);
-
-                try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-
-                    return readFromResultSet(rs);
-                }
-            }
-        }
-    }
-
-    public List<Question> listAll() throws SQLException {
-
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<Question> result = new ArrayList<>();
-                    while (rs.next()) {
-                        result.add(readFromResultSet(rs));
-                    }
-                    return result;
-                }
-            }
-        }
-    }
-
-
-    @Override
-    public Question readFromResultSet(ResultSet rs) throws SQLException {
-        Question question = new Question();
-        question.setQuestionId(rs.getLong("question_id"));
-        question.setTitle(rs.getString("title"));
-        question.setText(rs.getString("text"));
-
-        return question;
-    }
-
-     */
 
 
 }

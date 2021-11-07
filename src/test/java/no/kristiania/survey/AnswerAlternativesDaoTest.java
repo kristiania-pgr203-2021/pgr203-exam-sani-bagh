@@ -37,7 +37,6 @@ public class AnswerAlternativesDaoTest {
     public static AnswerAlternatives exampleAnswerAlternatives() {
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
         answerAlternatives.setAnswerText(TestData.pickOne("Question 1", "Question 2", "Question 3", "Question 4"));
-        answerAlternatives.setQuestion_ID(TestData.pickOneLong(1, 2, 3, 4));
 
         return answerAlternatives;
 
