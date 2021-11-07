@@ -1,14 +1,12 @@
 package no.kristiania.survey;
 
-import org.flywaydb.core.api.callback.Context;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SurveyDao extends Dao{
+public class SurveyDao extends AbsractDao<Survey>{
 
     private final DataSource dataSource;
 
@@ -19,35 +17,11 @@ public class SurveyDao extends Dao{
 
     @Override
     public Survey retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from survey where survey_id = ?")) {
-                statement.setLong(1, id);
-
-                try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-
-                    return readFromResultSet(rs);
-                }
-            }
-        }
+        return retrieveAbstract("select * from survey where survey_id = ?", id);
         
 
     }
 
-    public List<Survey> listAll() throws SQLException {
-
-            try (Connection connection = dataSource.getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement("select * from survey")) {
-                    try (ResultSet rs = statement.executeQuery()) {
-                        ArrayList<Survey> result = new ArrayList<>();
-                        while (rs.next()) {
-                            result.add(readFromResultSet(rs));
-                        }
-                        return result;
-                    }
-                }
-            }
-        }
 
     public void save(Survey survey) throws SQLException {
 
@@ -78,6 +52,12 @@ public class SurveyDao extends Dao{
     survey.setId(rs.getLong("survey_id"));
     survey.setTitle(rs.getString("title"));
 
+
         return survey;
+    }
+
+    @Override
+    public List<Survey> listAll() throws SQLException {
+        return listAllWithPreparedStatement("select * from survey");
     }
 }

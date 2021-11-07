@@ -22,11 +22,21 @@ public class AnswerAlternativesDaoTest {
                 .isEqualTo(answerAlternatives);
     }
 
+    @Test
+    void shouldListAllAnswerAlternatives() throws SQLException {
+        AnswerAlternatives answerAlternatives = exampleAnswerAlternatives();
+        dao.save(answerAlternatives);
+        AnswerAlternatives answerAlternatives1 = exampleAnswerAlternatives();
+        dao.save(answerAlternatives1);
+
+        assertThat(dao.listAll())
+                .extracting(AnswerAlternatives::getAnswerId)
+                .contains(answerAlternatives.getAnswerId(), answerAlternatives1.getAnswerId());
+    }
 
     public static AnswerAlternatives exampleAnswerAlternatives() {
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
         answerAlternatives.setAnswerText(TestData.pickOne("Question 1", "Question 2", "Question 3", "Question 4"));
-        answerAlternatives.setQuestion_ID(TestData.pickOneLong(1, 2, 3, 4));
 
         return answerAlternatives;
 
