@@ -19,4 +19,8 @@ public class TestData {
     public static String pickOne(String... alternates) {
         return alternates[random.nextInt(alternates.length)];
     }
+
+    public static long pickOneLong(long...alternatives) {
+        return alternatives[random.nextInt(alternatives.length)];
+    }
 }

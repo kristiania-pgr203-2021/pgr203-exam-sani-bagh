@@ -28,8 +28,18 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
     @Override
-    public AnswerAlternatives retrieve(long id) throws SQLException {
-        return null;
+    public Question retrieve(long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where question_id = ?")) {
+                statement.setLong(1, id);
+
+                try (ResultSet rs = statement.executeQuery()) {
+                    rs.next();
+
+                    return readFromResultSet(rs);
+                }
+            }
+        }
     }
 
     public List<String> listQuestionText() throws SQLException {

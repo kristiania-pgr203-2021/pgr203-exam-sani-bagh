@@ -15,6 +15,8 @@ public abstract class AbsractDao<T> {
         this.dataSource = dataSource;
     }
 
+
+    /*
     protected T retrieve(String sql, long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -26,6 +28,8 @@ public abstract class AbsractDao<T> {
             }
         }
     }
+
+     */
 
 
     protected abstract T readFromResultSet(ResultSet rs) throws SQLException;
@@ -47,7 +51,7 @@ public abstract class AbsractDao<T> {
         }
     }
 
-    public abstract AnswerAlternatives retrieve(long id) throws SQLException;
+    public abstract T retrieve(long id) throws SQLException;
 }
 
 
