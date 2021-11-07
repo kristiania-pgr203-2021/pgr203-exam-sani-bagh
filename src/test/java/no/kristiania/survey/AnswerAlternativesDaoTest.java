@@ -22,6 +22,17 @@ public class AnswerAlternativesDaoTest {
                 .isEqualTo(answerAlternatives);
     }
 
+    @Test
+    void shouldListAllAnswerAlternatives() throws SQLException {
+        AnswerAlternatives answerAlternatives = exampleAnswerAlternatives();
+        dao.save(answerAlternatives);
+        AnswerAlternatives answerAlternatives1 = exampleAnswerAlternatives();
+        dao.save(answerAlternatives1);
+
+        assertThat(dao.listAll())
+                .extracting(AnswerAlternatives::getAnswerId)
+                .contains(answerAlternatives.getAnswerId(), answerAlternatives1.getAnswerId());
+    }
 
     public static AnswerAlternatives exampleAnswerAlternatives() {
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
