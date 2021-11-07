@@ -18,7 +18,6 @@ public class CreateAnswerOptionsController implements HttpController{
         Map<String, String> parameters = HttpMessage.parseRequestParameters(request.messageBody);
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
         answerAlternatives.setAnswerText(parameters.get("answerText"));
-        answerAlternatives.setQuestion_ID(Long.parseLong(parameters.get("question_ID")));
         answerAlternativesDao.save(answerAlternatives);
 
 
