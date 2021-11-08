@@ -16,7 +16,7 @@ public class AnswerAlternativesDaoTest {
 
 
     @BeforeEach
-    void initSave() throws SQLException {
+    void initialSave() throws SQLException {
         for (int i=0; i<4; i++) {
             dao.save(exampleAnswerAlternatives());
         }

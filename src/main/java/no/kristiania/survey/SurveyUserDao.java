@@ -12,7 +12,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
     @Override
     protected SurveyUser readFromResultSet(ResultSet rs) throws SQLException {
         SurveyUser surveyUser = new SurveyUser();
-        surveyUser.setUserId(rs.getLong("surveyUser_id"));
+        surveyUser.setUserId(rs.getLong("user_id"));
         surveyUser.setFirstName(rs.getString("first_name"));
         surveyUser.setLastName(rs.getString("last_name"));
         surveyUser.setEmail(rs.getString("email"));
@@ -35,7 +35,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    surveyUser.setUserId(rs.getLong("surveyUser_id"));
+                    surveyUser.setUserId(rs.getLong("user_id"));
                 }
             }
         }
@@ -49,7 +49,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
 
     @Override
     public SurveyUser retrieve(long id) throws SQLException {
-        return retrieveAbstract("select * from SurveyUser where surveyUser_id = ?", id );
+        return retrieveAbstract("select * from SurveyUser where user_id = ?", id );
     }
 
 }
