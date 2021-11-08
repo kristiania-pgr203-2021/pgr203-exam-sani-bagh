@@ -20,16 +20,25 @@ public class HttpMessage {
         }
     }
 
+    public HttpMessage(String startLine, String headerField, String headerValue) {
+        this.startLine = startLine;
+        this.headerFields.put(headerField, headerValue);
+    }
+/*
     public HttpMessage(String startLine, String messageBody) {
         this.startLine = startLine;
         this.messageBody = messageBody;
     }
+
+ */
+/*
     public HttpMessage(String startLine, String messageBody, String contentType) {
         this.startLine = startLine;
         this.messageBody = messageBody;
         this.contentType = contentType;
     }
 
+ */
 
 
     static Map<String, String> parseRequestParameters(String query) {
@@ -37,7 +46,7 @@ public class HttpMessage {
         for (String queryParameter : query.split("&")) {
             int equalsPos = queryParameter.indexOf('=');
             String parameterName = queryParameter.substring(0, equalsPos);
-            String parameterValue = queryParameter.substring(equalsPos+1);
+            String parameterValue = queryParameter.substring(equalsPos + 1);
             queryMap.put(parameterName, parameterValue);
         }
         return queryMap;
@@ -54,7 +63,7 @@ public class HttpMessage {
     static String readBytes(Socket socket, int contentLength) throws IOException {
         StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < contentLength; i++) {
-            buffer.append((char)socket.getInputStream().read());
+            buffer.append((char) socket.getInputStream().read());
         }
         return java.net.URLDecoder.decode(buffer.toString(), StandardCharsets.UTF_8);
     }
@@ -64,7 +73,7 @@ public class HttpMessage {
         while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
             int colonPos = headerLine.indexOf(':');
             String headerField = headerLine.substring(0, colonPos);
-            String headerValue = headerLine.substring(colonPos+1).trim();
+            String headerValue = headerLine.substring(colonPos + 1).trim();
             headerFields.put(headerField, headerValue);
         }
     }
@@ -73,7 +82,7 @@ public class HttpMessage {
         StringBuilder buffer = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {
-            buffer.append((char)c);
+            buffer.append((char) c);
         }
         int expectedNewline = socket.getInputStream().read();
         assert expectedNewline == '\n';
@@ -81,11 +90,26 @@ public class HttpMessage {
     }
 
     public void write(Socket clientSocket) throws IOException {
-        String response = startLine + "\r\n" +
-                "Content-Length: " + messageBody.length() + "\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                messageBody;
+        String response;
+        if (headerFields.isEmpty()) {
+            response = startLine + "\r\n" +
+                    "Content-Length: " + messageBody.length() + "\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n" +
+                    messageBody;
+        } else {
+            response = "HTTP/1.1 303 See Other" + "\r\n" +
+                    "Content-length: 0" + "\r\n" +
+                    "Location: " + headerFields.get("Location") + "\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n" +
+                    "\r\n";
+        }
+
         clientSocket.getOutputStream().write(response.getBytes());
     }
 }
+
+
+
+

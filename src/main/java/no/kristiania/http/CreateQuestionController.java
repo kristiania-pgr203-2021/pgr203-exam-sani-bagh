@@ -22,6 +22,8 @@ public class CreateQuestionController implements HttpController{
         question.setText(parameters.get("text"));
         questionDao.save(question);
 
-        return new HttpMessage("HTTP/1.1 200 OK", java.net.URLDecoder.decode("Question is saved", "UTF-8"), "text/html; charset=utf-8");
+        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/newQuestionnaire.html");
+
+
     }
 }
