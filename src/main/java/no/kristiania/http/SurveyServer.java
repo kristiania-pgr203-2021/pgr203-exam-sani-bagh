@@ -26,7 +26,8 @@ public class SurveyServer {
         httpServer.addController("/api/questions", new ListQuestionsController(questionDao));
         httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         httpServer.addController("/api/questionOptions", new QuestionOptionsController(questionDao));
-        httpServer.addController("/api/questionss", new CreateQuestionController(questionDao));
+        httpServer.addController("/api/questions", new CreateQuestionController(questionDao));
+        httpServer.addController("/api/tasks", new CreateAnswerOptionsController(answerAlternativesDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
 
     }

@@ -12,7 +12,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
     @Override
     protected SurveyUser readFromResultSet(ResultSet rs) throws SQLException {
         SurveyUser surveyUser = new SurveyUser();
-        surveyUser.setUserId(rs.getLong("SurveyUser_id"));
+        surveyUser.setUserId(rs.getLong("surveyUser_id"));
         surveyUser.setFirstName(rs.getString("first_name"));
         surveyUser.setLastName(rs.getString("last_name"));
         surveyUser.setEmail(rs.getString("email"));
@@ -23,7 +23,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into user (first_name, last_name, email) values (?, ?, ?)",
+                    "insert into SurveyUser (first_name, last_name, email) values (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
@@ -35,7 +35,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
 
                 try (ResultSet rs = statement.getGeneratedKeys()) {
                     rs.next();
-                    surveyUser.setUserId(rs.getLong("user_id"));
+                    surveyUser.setUserId(rs.getLong("surveyUser_id"));
                 }
             }
         }
@@ -43,13 +43,13 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
 
     @Override
     public List<SurveyUser> listAll() throws SQLException {
-        return listAllWithPreparedStatement("select * from user");
+        return listAllWithPreparedStatement("select * from SurveyUser");
     }
 
 
     @Override
     public SurveyUser retrieve(long id) throws SQLException {
-        return retrieveAbstract("select * from user where user_id = ?", id );
+        return retrieveAbstract("select * from SurveyUser where surveyUser_id = ?", id );
     }
 
 }
