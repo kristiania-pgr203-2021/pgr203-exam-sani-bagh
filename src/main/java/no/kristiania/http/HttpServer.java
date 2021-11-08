@@ -23,14 +23,17 @@ public class HttpServer {
     }
 
     private void handleClients() {
-        try {
-            while (true) {
+        while (true) {
+            try {
                 handleClient();
+
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+                System.out.println("500 internal server error");
             }
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
         }
     }
+
 
     private void handleClient() throws IOException, SQLException {
         Socket clientSocket = serverSocket.accept();
