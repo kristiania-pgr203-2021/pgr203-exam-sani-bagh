@@ -39,14 +39,15 @@ public class QuestionDaoTest {
 
     @Test
     void shouldListQuestionsByTitle() throws SQLException {
-        Question questionOne = new Question();
-        questionOne.setTitle("title");
+        Question questionOne = exampleQuestion();
+        questionOne.setTitle("Example title");
         dao.save(questionOne);
-        Question questionTwo = new Question();
+
+        Question questionTwo = exampleQuestion();
         questionTwo.setTitle(questionOne.getTitle());
         dao.save(questionTwo);
 
-        Question nonMatchingQuestion = new Question();
+        Question nonMatchingQuestion = exampleQuestion();
         dao.save(nonMatchingQuestion);
 
 
