@@ -1,6 +1,6 @@
 package no.kristiania.survey;
 
-public class User {
+public class SurveyUser {
     private long userId;
     private String firstName;
     private String lastName;
