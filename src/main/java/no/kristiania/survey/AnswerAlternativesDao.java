@@ -32,15 +32,16 @@ public class AnswerAlternativesDao extends AbsractDao<AnswerAlternatives>{
 
     public void save(AnswerAlternatives answerAlternatives) throws SQLException {
 
+        Question question = new Question();
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "insert into answeralternatives (answer_text, question_id) values (?, " +
-                            "(select question_id from question where question_id = ?))",
+                            "(select question_id from question where text = ?))",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
                 statement.setString(1, answerAlternatives.getAnswerText());
-                statement.setLong(2, answerAlternatives.getQuestion_ID());
+                statement.setString(2, question.getText());
 
                 statement.executeUpdate();
 
@@ -53,43 +54,4 @@ public class AnswerAlternativesDao extends AbsractDao<AnswerAlternatives>{
     }
 
 
-    /*
-
-    private final DataSource dataSource;
-
-    public AnswerAlternativesDao(DataSource dataSource) {
-        super(dataSource);
-        this.dataSource = dataSource;
-    }
-
-    @Override
-    public AnswerAlternatives retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from answerAlternatives inner join question on " +
-                    " question.question_id = answerAlternatives.question_ID where answer_id = ?")) {
-                statement.setLong(1, id);
-
-                try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-
-                    return readFromResultSet(rs);
-                }
-            }
-        }
-    }
-
-
-
-    @Override
-    public AnswerAlternatives readFromResultSet(ResultSet rs) throws SQLException {
-        AnswerAlternatives answerAlternatives = new AnswerAlternatives();
-        answerAlternatives.setAnswerId(rs.getLong("answer_id"));
-        answerAlternatives.setAnswerText(rs.getString("answer_text"));
-        //answerAlternatives.setQuestion_ID(rs.getLong("question_ID"));
-
-
-        return answerAlternatives;
-    }
-
-     */
 }

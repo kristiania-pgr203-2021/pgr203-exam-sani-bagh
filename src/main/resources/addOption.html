@@ -10,17 +10,12 @@
   <button class="btn"><a href=".">Return to front page</a></button>
 </div>
 <h1>Add option to question</h1>
-<form method="GET" action="/api/tasks">
+<form method="POST" action="/api/tasks">
   <div class="select_div">
     Question: <select id="questions" name="questions" />
   </div>
-</form>
-<form method="POST" action="api/answer">
   <div>
     Option: <input type="text" name="option"/>
-  </div>
-  <div>
-    Question id: <input type="text" name="option"/>
   </div>
   <button class="add_btn">Add</button>
 </form>

@@ -3,7 +3,7 @@ package no.kristiania.http;
 import no.kristiania.survey.AnswerAlternatives;
 import no.kristiania.survey.AnswerAlternativesDao;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class CreateAnswerOptionsController implements HttpController{
     }
 
     @Override
-    public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
+    public HttpMessage handle(HttpMessage request) throws SQLException, UnsupportedEncodingException {
         Map<String, String> parameters = HttpMessage.parseRequestParameters(request.messageBody);
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
         answerAlternatives.setAnswerText(parameters.get("answerText"));

@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Create question | Kristiania Questionnaire</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Create question | Kristiania Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div>
-  <button class="btn"><a href="index.html">Return to front page</a></button>
-  <button class="btn"><a href="addOption.html">Add answer alternatives to questions</a></button>
-  <button class="btn"><a href="listAllQuestions.html">List all questions</a></button>
+    <button class="btn"><a href="index.html">Return to front page</a></button>
+    <button class="btn"><a href="addOption.html">Add answer alternatives to questions</a></button>
+    <button class="btn"><a href="listAllQuestions.html">List all questions</a></button>
 </div>
 <h1>Add question member</h1>
 <form method="POST" action="/api/questions">
-  <div>
-    Question title: <input type="text" name="title" placeholder="Questionnaire title....."/>
-  </div>
-  <div>
-    Question text: <input type="text" name="text" placeholder="Question text......"/>
-  </div>
-  <div>
-    <form>
-      <input type="radio" id="1" name="question_rate" value="1">
-      <label for="1">1</label><br><br>
-      <input type="radio" id="2" name="question_rate" value="2">
-      <label for="2">2</label><br><br>
-      <input type="radio" id="3" name="question_rate" value="3">
-      <label for="3">3</label>
-    </form>
-  </div>
+    <div>
+        Question title: <input type="text" name="title" placeholder="Questionnaire title....."/>
+    </div>
+    <div>
+        Question text: <input type="text" name="text" placeholder="Question text......"/>
+    </div>
+    <div>
+        <form>
+            <input type="radio" id="1" name="question_rate" value="1">
+            <label for="1">1</label><br><br>
+            <input type="radio" id="2" name="question_rate" value="2">
+            <label for="2">2</label><br><br>
+            <input type="radio" id="3" name="question_rate" value="3">
+            <label for="3">3</label>
+        </form>
+    </div>
 
-  <button class="add_btn">Add</button>
+    <button class="add_btn">Add</button>
 </form>
 </body>
 <script>
-  fetch("/api/addQuestion")
-          .then(function(response) {
+    fetch("/api/addQuestion")
+        .then(function(response) {
             return response.text();
-          }).then(function(text) {
-    document.getElementById("questions").innerHTML = text;
-  });
+        }).then(function(text) {
+        document.getElementById("questions").innerHTML = text;
+    });
 </script>
 </html>
