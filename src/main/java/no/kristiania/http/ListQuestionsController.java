@@ -20,8 +20,10 @@ public class ListQuestionsController implements HttpController{
 
 
         for (Question q : questionDao.listAll()) {
-            responseText += "<h4>" + q.getTitle()  + "</h4>"  + "\n"
+            responseText += "<h4>" + q.getQuestionId()  + "</h4>"  + "\n" +
+                            "<h4>" + q.getTitle()  + "</h4>"  + "\n"
                             + "<h4>" + q.getText() + "</h4>";
+
         }
         return new HttpMessage("HTTP/1.1 200 OK", java.net.URLDecoder.decode(responseText, "UTF-8"), "text/html; charset=utf-8");
     }

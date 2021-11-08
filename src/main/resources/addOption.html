@@ -15,9 +15,12 @@
     Question: <select id="questions" name="questions" />
   </div>
 </form>
-<form method="POST" action="api/tasks">
+<form method="POST" action="api/answer">
   <div>
-    Option: <input type="text" name="option "/>
+    Option: <input type="text" name="option"/>
+  </div>
+  <div>
+    Question id: <input type="text" name="option"/>
   </div>
   <button class="add_btn">Add</button>
 </form>
@@ -29,5 +32,7 @@
           }).then(function(text) {
     document.getElementById("questions").innerHTML = text;
   });
+
+
 </script>
 </html>

@@ -7,6 +7,8 @@ public class AnswerAlternatives {
     private String answerText;
     private long question_ID;
 
+
+
     public long getQuestion_ID() {
         return question_ID;
     }
@@ -30,4 +32,5 @@ public class AnswerAlternatives {
     public void setAnswerText(String answerText) {
         this.answerText = answerText;
     }
+
 }

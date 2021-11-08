@@ -11,7 +11,7 @@
     </div>
     <h1>Here are all the questions</h1>
     <form method="GET" action="/api/allQuestions">
-        <div class="questions">
+        <div id="questions" class="questions">
 
         </div>
     </form>
@@ -19,7 +19,7 @@
 
 </body>
 <script>
-    fetch("/api/questions").then(function(resp) {
+    fetch("/api/allQuestions").then(function(resp) {
         return resp.text();
     }).then(function (text) {
         document.getElementById("questions").innerHTML = text;
