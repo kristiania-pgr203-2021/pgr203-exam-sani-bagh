@@ -18,7 +18,7 @@ public class CreateAnswerOptionsController implements HttpController{
     public HttpMessage handle(HttpMessage request) throws SQLException, UnsupportedEncodingException {
         Map<String, String> parameters = HttpMessage.parseRequestParameters(request.messageBody);
         AnswerAlternatives answerAlternatives = new AnswerAlternatives();
-        answerAlternatives.setAnswerText(parameters.get("answerText"));
+        answerAlternatives.setAnswerText(parameters.get("option"));
         answerAlternativesDao.save(answerAlternatives);
 
 
