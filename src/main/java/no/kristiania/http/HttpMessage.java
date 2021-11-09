@@ -24,13 +24,13 @@ public class HttpMessage {
         this.startLine = startLine;
         this.headerFields.put(headerField, headerValue);
     }
-/*
+
     public HttpMessage(String startLine, String messageBody) {
         this.startLine = startLine;
         this.messageBody = messageBody;
     }
 
- */
+
 /*
     public HttpMessage(String startLine, String messageBody, String contentType) {
         this.startLine = startLine;

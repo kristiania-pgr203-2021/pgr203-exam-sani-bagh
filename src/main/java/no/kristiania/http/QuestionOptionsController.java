@@ -15,13 +15,13 @@ public class QuestionOptionsController implements HttpController{
     }
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
-        String responseText = "";
+        String messageBody = "";
 
         int value = 1;
         for (String s: questionDao.listQuestionText()) {
-            responseText += "<option value=" + (value++) + ">" + s + "</option>";
+            messageBody += "<option value=" + (value++) + ">" + s + "</option>";
         }
 
-        return new HttpMessage("HTTP/1.1 200 OK", java.net.URLDecoder.decode(responseText, "UTF-8"), "text/html; charset=utf-8");
+        return new HttpMessage("HTTP/1.1 200 OK", messageBody);
     }
 }

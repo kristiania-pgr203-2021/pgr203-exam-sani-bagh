@@ -22,7 +22,7 @@ public class CreateAnswerOptionsController implements HttpController{
         answerAlternativesDao.save(answerAlternatives);
 
 
-        return new HttpMessage("HTTP/1.1 200 OK", java.net.URLDecoder.decode("Answer is saved", "UTF-8"), "text/html; charset=utf-8");
+        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/addOption.html");
     }
 
 
