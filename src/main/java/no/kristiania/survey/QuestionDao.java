@@ -45,6 +45,20 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
+    public List<String> listQuestionTitle() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select title from question")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<String> result = new ArrayList<>();
+                    while (rs.next()) {
+                        result.add(rs.getString("title"));
+                    }
+                    return result;
+                }
+            }
+        }
+    }
+
     public List<Question> listQuestionByTitle(String title) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from question where title= ?")) {
@@ -66,6 +80,27 @@ public class QuestionDao extends AbsractDao<Question>{
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "insert into question(title, text) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+
+            )) {
+                statement.setString(1, question.getTitle());
+                statement.setString(2, question.getText());
+
+
+                statement.executeUpdate();
+
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    rs.next();
+                    question.setQuestionId(rs.getLong("question_id"));
+                }
+            }
+        }
+    }
+
+    public void update(Question question) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "update question set title = ?, text = ? where question_id = ?",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {

@@ -35,13 +35,12 @@ public class AnswerAlternativesDao extends AbsractDao<AnswerAlternatives>{
         Question question = new Question();
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into answeralternatives (answer_text, question_id) values (?, " +
-                            "(select question_id from question where text =?))",
+                    "insert into answeralternatives (answer_text, question_id) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
                 statement.setString(1, answerAlternatives.getAnswerText());
-                statement.setString(2, question.getText());
+                statement.setLong(2, answerAlternatives.getQuestion_ID());
 
                 statement.executeUpdate();
 

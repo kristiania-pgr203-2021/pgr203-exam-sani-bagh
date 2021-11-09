@@ -1,16 +1,16 @@
 package no.kristiania.http;
 
-import no.kristiania.survey.Question;
+
 import no.kristiania.survey.QuestionDao;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class QuestionOptionsController implements HttpController{
+public class QuestionTextOptionsController implements HttpController{
 
     private final QuestionDao questionDao;
 
-    public QuestionOptionsController(QuestionDao questionDao) {
+    public QuestionTextOptionsController(QuestionDao questionDao) {
         this.questionDao=questionDao;
     }
     @Override
