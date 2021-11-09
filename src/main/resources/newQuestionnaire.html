@@ -22,9 +22,15 @@
 
     <button class="add_btn">Add</button>
 </form>
+<h1>Here are all the questions</h1>
+<form method="GET" action="/api/questions">
+    <div id="questions" class="questions">
+
+    </div>
+</form>
 </body>
 <script>
-    fetch("/api/addQuestion")
+    fetch("/api/questions")
         .then(function(response) {
             return response.text();
         }).then(function(text) {
