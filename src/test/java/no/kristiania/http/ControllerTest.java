@@ -59,7 +59,30 @@ public class ControllerTest {
 
     }
 
+    @Test
+    void shouldCreateSurvey() throws IOException, SQLException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        server.addController("/api/createSurvey", new CreateSurveyController(questionDao));
 
+
+        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(),"/api/createSurvey", "fstittel=Title1&fspm=" +
+                                                "Text1&answerEn=Answer1&answerTo=Answer2&answerTre=Answer3&questions=1"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+
+        assertThat(questionDao.listAll())
+                .anySatisfy(q -> {
+                    assertThat(q.getTitle()).isEqualTo("Title1");
+                    assertThat(q.getText()).isEqualTo("Text1");
+                    assertThat(q.getAnswerOne()).isEqualTo("Answer1");
+                    assertThat(q.getAnswerTwo()).isEqualTo("Answer2");
+                    assertThat(q.getAnswerThree()).isEqualTo("Answer3");
+                    assertThat(q.getSurvey_ID()).isEqualTo(1);
+                });
+
+
+    }
 
     @Test
     void shouldCreateSurveyTitle() throws IOException, SQLException {
@@ -71,8 +94,8 @@ public class ControllerTest {
 
         assertEquals(303, postClient.getStatusCode());
         assertThat(surveyDao.listAll())
-                .anySatisfy(q -> {
-                    assertThat(q.getTitle()).isEqualTo("Title1");
+                .anySatisfy(s -> {
+                    assertThat(s.getTitle()).isEqualTo("Title1");
 
                 });
 
