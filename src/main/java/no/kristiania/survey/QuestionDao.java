@@ -19,7 +19,7 @@ public class QuestionDao extends AbsractDao<Question>{
         question.setQuestionId(rs.getLong("question_id"));
         question.setTitle(rs.getString("title"));
         question.setText(rs.getString("text"));
-        question.setSurvey_ID(Long.parseLong(rs.getString("survey_id")));
+        question.setSurvey_ID(Integer.parseInt(rs.getString("survey_id")));
         question.setAnswerOne(rs.getString("answerOne"));
         question.setAnswerTwo(rs.getString("answerTwo"));
         question.setAnswerThree(rs.getString("answerThree"));
@@ -113,13 +113,22 @@ public class QuestionDao extends AbsractDao<Question>{
     public void update(Question question) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "update question set title = ?, text = ? where question_id = ?",
+                    "UPDATE question " +
+                            "SET title = ?, " +
+                            "text = ?, " +
+                            "answerone = ?, " +
+                            "answertwo= ?, " +
+                            "answerthree= ? " +
+                            "WHERE question_id = ?",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
                 statement.setString(1, question.getTitle());
                 statement.setString(2, question.getText());
-                statement.setLong(3, question.getQuestionId());
+                statement.setString(3, question.getAnswerOne());
+                statement.setString(4, question.getAnswerTwo());
+                statement.setString(5, question.getAnswerThree());
+                statement.setLong(6, question.getSurvey_ID());
 
 
                 statement.executeUpdate();

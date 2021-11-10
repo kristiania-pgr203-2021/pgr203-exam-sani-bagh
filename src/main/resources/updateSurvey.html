@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update survey | Kristiania Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+    <button class="btn"><a href="index.html">Return to front page</a></button>
+    <button class="btn"><a href="createSurvey.html">Add answer alternatives to questions</a></button>
+    <button class="btn"><a href="listAllQuestions.html">List all questions</a></button>
+    <button class="btn"><a href="newQuestionnaire.html">Create new question</a></button>
+</div>
+<h1>Update Survey</h1>
+<form method="POST" action="/api/updateSurvey">
+    <div class="select_div">
+        Survey: <select id="questionTitle" name="questionTitle" />
+    </div>
+    <div>
+        <h2>Update Survey</h2>
+
+        <label >Tast inn en tittel:</label><br>
+        <input type="text" id="fstittel" name="fstittel"><br>
+        <label >Tast inn et Spørsmål:</label><br>
+        <input type="text" id="fspm" name="fspm"><br>
+        <label >Tast inn svar:</label><br>
+        <input type="text" id="answeren" name="answerEn"><br><br>
+        <label >Tast inn svar:</label><br>
+        <input type="text" id="answerto" name="answerTo"><br><br>
+        <label >Tast inn svar:</label><br>
+        <input type="text" id="answertre" name="answerTre"><br><br>
+        <input type="submit" value="Submit">
+
+
+    </div>
+    <button class="add_btn">Add</button>
+</form>
+</body>
+<script>
+    fetch("/api/surveyList")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("questionTitle").innerHTML = text;
+    });
+
+
+</script>
+</html>

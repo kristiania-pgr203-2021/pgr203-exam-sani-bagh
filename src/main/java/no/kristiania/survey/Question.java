@@ -4,7 +4,7 @@ public class Question {
     private long questionId;
     private String title;
     private String text;
-    private long survey_ID;
+    private int survey_ID;
     private String answerOne;
     private String answerTwo;
     private String answerThree;
@@ -14,7 +14,7 @@ public class Question {
         return survey_ID;
     }
 
-    public void setSurvey_ID(long survey_ID) {
+    public void setSurvey_ID(int survey_ID) {
         this.survey_ID = survey_ID;
     }
 
