@@ -33,6 +33,7 @@ public class SurveyServer {
         httpServer.addController("/api/surveyList", new QuestionOptionController(questionDao));
       //  httpServer.addController("/api/useSurvey", new SaveAnswerController(answerDao));
         httpServer.addController("/api/useSurvey", new SaveAnswerController(answerDao));
+        httpServer.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
 
     }

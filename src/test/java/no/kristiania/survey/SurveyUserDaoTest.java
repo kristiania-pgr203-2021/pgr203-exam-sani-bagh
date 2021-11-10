@@ -1,5 +1,6 @@
 package no.kristiania.survey;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -9,6 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SurveyUserDaoTest {
 
     private SurveyUserDao dao = new SurveyUserDao(TestData.testDataSource());
+
+    @BeforeEach
+    void initialSave() throws SQLException {
+        for (int i=0; i < 4; i++) {
+            dao.save(exampleUser());
+        }
+
+    }
 
     @Test
     void shouldRetrieveSavedUser() throws SQLException {
