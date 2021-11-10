@@ -36,7 +36,6 @@ public class QuestionDao extends AbsractDao<Question>{
         return retrieveAbstract("select * from question where question_id = ?", id);
     }
 
-    /*
     public List<String> listQuestionText() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
@@ -50,8 +49,6 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
-
-     */
 
     public List<String> listQuestionTitle() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -122,6 +119,7 @@ public class QuestionDao extends AbsractDao<Question>{
             )) {
                 statement.setString(1, question.getTitle());
                 statement.setString(2, question.getText());
+                statement.setLong(3, question.getQuestionId());
 
 
                 statement.executeUpdate();
@@ -133,7 +131,6 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
-
 
 
 

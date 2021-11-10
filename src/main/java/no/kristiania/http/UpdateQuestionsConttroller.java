@@ -20,8 +20,9 @@ public class UpdateQuestionsConttroller implements HttpController{
         Question question = new Question();
         question.setTitle(parameters.get("title"));
         question.setText(parameters.get("text"));
+        question.setQuestionId(Long.parseLong(parameters.get("question_text")));
         questionDao.update(question);
 
-        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/newQuestionnaire.html");
+        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/updateQuestions.html");
     }
 }
