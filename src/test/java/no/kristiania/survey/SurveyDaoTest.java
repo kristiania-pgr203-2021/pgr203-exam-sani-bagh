@@ -12,8 +12,8 @@ public class SurveyDaoTest {
     private SurveyDao dao = new SurveyDao(TestData.testDataSource());
     QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
     QuestionDaoTest questionDaoTest = new QuestionDaoTest();
-    AnswerAlternativesDaoTest answerAlternativesDaoTest = new AnswerAlternativesDaoTest();
-    AnswerAlternativesDao answerAlternativesDao = new AnswerAlternativesDao(TestData.testDataSource());
+    AnswerDaoTest answerAlternativesDaoTest = new AnswerDaoTest();
+    AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
 
 
 
@@ -26,7 +26,7 @@ public class SurveyDaoTest {
             questionDao.save(questionDaoTest.exampleQuestion());
         }
         for (int j=0; j < 4; j++) {
-            answerAlternativesDao.save(answerAlternativesDaoTest.exampleAnswerAlternatives());
+            answerDao.save(answerAlternativesDaoTest.exampleAnswerAlternatives());
         }
     }
 

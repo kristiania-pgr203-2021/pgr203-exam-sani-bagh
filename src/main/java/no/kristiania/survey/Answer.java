@@ -2,7 +2,7 @@ package no.kristiania.survey;
 
 
 
-public class AnswerAlternatives {
+public class Answer {
     private long answerId;
     private String answerText;
     private long question_ID;

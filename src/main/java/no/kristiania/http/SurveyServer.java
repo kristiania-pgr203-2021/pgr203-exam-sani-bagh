@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import no.kristiania.survey.AnswerDao;
 import no.kristiania.survey.QuestionDao;
 import no.kristiania.survey.SurveyDao;
 import org.flywaydb.core.Flyway;
@@ -19,16 +20,19 @@ public class SurveyServer {
         DataSource dataSource = createDataSource();
         QuestionDao questionDao = new QuestionDao(dataSource);
         SurveyDao surveyDao = new SurveyDao(dataSource);
+        AnswerDao answerDao = new AnswerDao(dataSource);
 
 
         HttpServer httpServer = new HttpServer(1962);
         httpServer.addController("/api/questions", new CreateQuestionController(questionDao));
-        httpServer.addController("/api/allQuestions", new ListQuestionsController(questionDao));
+        httpServer.addController("/api/showSurvey", new ListQuestionsController(questionDao));
         httpServer.addController("/api/surveyOptions", new SurveyOptionsController(surveyDao));
         httpServer.addController("/api/createSurvey", new CreateSurveyController(questionDao));
         httpServer.addController("/api/index", new RetrieveSurveysController(surveyDao));
         httpServer.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
         httpServer.addController("/api/surveyList", new QuestionOptionController(questionDao));
+      //  httpServer.addController("/api/useSurvey", new SaveAnswerController(answerDao));
+        httpServer.addController("/api/useSurvey", new SaveAnswerController(answerDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
 
     }

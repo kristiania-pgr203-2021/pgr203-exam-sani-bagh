@@ -18,13 +18,16 @@ public class ListQuestionsController implements HttpController{
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         String messageBody = "";
 
-
-        for (Question q : questionDao.listAll()) {
-            messageBody += "<h4>" + q.getQuestionId()  + "</h4>"  + "\n" +
-                            "<h4>" + q.getTitle()  + "</h4>"  + "\n"
-                            + "<h4>" + q.getText() + "</h4>";
-
+        for (Question question : questionDao.listAll()) {
+            long id = question.getQuestionId();
+            messageBody +=  "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" + "<h4 class='box'>" + question.getText() + "</h4>" +
+                    "<input type=hidden name='questionId' value=" + id + "> " +
+                    "<input type='radio' id='one' name='answer' value='" + question.getAnswerOne() + "'/> <label for='one'>" + question.getAnswerOne() + "</label><br>" +
+                    "<input type='radio' id='two' name='answer' value='" + question.getAnswerTwo() + "'/> <label for='two'>" + question.getAnswerTwo() + "</label><br>" +
+                    "<input type='radio' id='three' name='answer' value='" + question.getAnswerThree() + "'/> <label for='three'>" + question.getAnswerThree() + "</label><br>";
         }
+
+
         return new HttpMessage("HTTP/1.1 200 OK", messageBody);
     }
 }
