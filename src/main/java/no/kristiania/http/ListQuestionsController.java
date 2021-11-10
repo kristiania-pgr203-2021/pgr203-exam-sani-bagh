@@ -20,11 +20,10 @@ public class ListQuestionsController implements HttpController{
 
         for (Question question : questionDao.listAll()) {
             long id = question.getQuestionId();
-            messageBody +=  "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" + "<h4 class='box'>" + question.getText() + "</h4>" +
-                    "<input type=hidden name='questionId' value=" + id + "> " +
-                    "<input type='radio' id='one' name='answer' value='" + question.getAnswerOne() + "'/> <label for='one'>" + question.getAnswerOne() + "</label><br>" +
-                    "<input type='radio' id='two' name='answer' value='" + question.getAnswerTwo() + "'/> <label for='two'>" + question.getAnswerTwo() + "</label><br>" +
-                    "<input type='radio' id='three' name='answer' value='" + question.getAnswerThree() + "'/> <label for='three'>" + question.getAnswerThree() + "</label><br>";
+            messageBody +=  "<h4>" + id + ":" + question.getTitle() + "</h4>" + "\n" + "<h4> Question: " + question.getText() + "</h4>" + "\n" +
+                    "<h4> Answer one: " + question.getAnswerOne() + "</h4>" +  "\n" +
+                    "<h4>Answer two: " + question.getAnswerTwo() + "</h4>" + "\n" +
+                    "<h4>Answer three: " + question.getAnswerThree() + "</h4>";
         }
 
 
