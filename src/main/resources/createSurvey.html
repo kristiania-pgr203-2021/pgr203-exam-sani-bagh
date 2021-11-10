@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Survey | Kristiania Questionnaire</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+  <button class="btn"><a href=".">Return to front page</a></button>
+</div>
+<h1>Add survey</h1>
+<form method="POST" action="/api/createSurvey">
+  <div class="select_div">
+    Survey: <select id="questions" name="questions" />
+  </div>
+  <div>
+    <h2>Create Survey</h2>
+
+    <label >Tast inn en tittel:</label><br>
+    <input type="text" id="fstittel" name="fstittel"><br>
+      <label >Tast inn et Spørsmål:</label><br>
+      <input type="text" id="fspm" name="fspm"><br>
+      <label >Tast inn svar:</label><br>
+      <input type="text" id="answeren" name="answerEn"><br><br>
+    <label >Tast inn svar:</label><br>
+    <input type="text" id="answerto" name="answerTo"><br><br>
+    <label >Tast inn svar:</label><br>
+    <input type="text" id="answertre" name="answerTre"><br><br>
+      <input type="submit" value="Submit">
+
+
+  </div>
+  <button class="add_btn">Add</button>
+</form>
+</body>
+<script>
+  fetch("/api/surveyOptions")
+          .then(function(response) {
+            return response.text();
+          }).then(function(text) {
+    document.getElementById("questions").innerHTML = text;
+  });
+
+
+</script>
+</html>

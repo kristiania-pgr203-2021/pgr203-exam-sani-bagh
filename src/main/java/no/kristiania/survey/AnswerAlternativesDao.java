@@ -32,7 +32,7 @@ public class AnswerAlternativesDao extends AbsractDao<AnswerAlternatives>{
 
     public void save(AnswerAlternatives answerAlternatives) throws SQLException {
 
-        Question question = new Question();
+       // Question question = new Question();
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "insert into answeralternatives (answer_text, question_id) values (?, ?)",

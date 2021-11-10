@@ -54,9 +54,6 @@ public class SurveyDao extends AbsractDao<Survey>{
     Survey survey = new Survey();
     survey.setId(rs.getLong("survey_id"));
     survey.setTitle(rs.getString("title"));
-    survey.setQuestionId(rs.getLong("question_id"));
-    survey.setAnswerId(rs.getLong("answer_id"));
-
 
         return survey;
     }

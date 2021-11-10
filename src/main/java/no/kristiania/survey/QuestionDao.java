@@ -15,9 +15,14 @@ public class QuestionDao extends AbsractDao<Question>{
     @Override
     protected Question readFromResultSet(ResultSet rs) throws SQLException {
         Question question = new Question();
+
         question.setQuestionId(rs.getLong("question_id"));
         question.setTitle(rs.getString("title"));
         question.setText(rs.getString("text"));
+        question.setSurvey_ID(Long.parseLong(rs.getString("survey_id")));
+        question.setAnswerOne(rs.getString("answerOne"));
+        question.setAnswerTwo(rs.getString("answerTwo"));
+        question.setAnswerThree(rs.getString("answerThree"));
 
         return question;
     }
@@ -31,6 +36,7 @@ public class QuestionDao extends AbsractDao<Question>{
         return retrieveAbstract("select * from question where question_id = ?", id);
     }
 
+    /*
     public List<String> listQuestionText() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
@@ -44,6 +50,8 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
+
+     */
 
     public List<String> listQuestionTitle() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -59,6 +67,7 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
+    /*
     public List<Question> listQuestionByTitle(String title) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from question where title= ?")) {
@@ -75,16 +84,22 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
+     */
+
     public void save(Question question) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into question(title, text) values (?, ?)",
+                    "insert into question(title, text, answerOne, answerTwo, answerThree, survey_id ) values (?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
                 statement.setString(1, question.getTitle());
                 statement.setString(2, question.getText());
+                statement.setString(3, question.getAnswerOne());
+                statement.setString(4, question.getAnswerTwo());
+                statement.setString(5, question.getAnswerThree());
+                statement.setLong(6, question.getSurvey_ID());
 
 
                 statement.executeUpdate();
@@ -96,6 +111,7 @@ public class QuestionDao extends AbsractDao<Question>{
             }
         }
     }
+
 
     public void update(Question question) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {

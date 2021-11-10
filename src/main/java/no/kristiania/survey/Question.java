@@ -4,7 +4,43 @@ public class Question {
     private long questionId;
     private String title;
     private String text;
+    private long survey_ID;
+    private String answerOne;
+    private String answerTwo;
+    private String answerThree;
 
+
+    public long getSurvey_ID() {
+        return survey_ID;
+    }
+
+    public void setSurvey_ID(long survey_ID) {
+        this.survey_ID = survey_ID;
+    }
+
+    public String getAnswerOne() {
+        return answerOne;
+    }
+
+    public void setAnswerOne(String answerOne) {
+        this.answerOne = answerOne;
+    }
+
+    public String getAnswerTwo() {
+        return answerTwo;
+    }
+
+    public void setAnswerTwo(String answerTwo) {
+        this.answerTwo = answerTwo;
+    }
+
+    public String getAnswerThree() {
+        return answerThree;
+    }
+
+    public void setAnswerThree(String answerThree) {
+        this.answerThree = answerThree;
+    }
 
     public long getQuestionId() {
         return questionId;
