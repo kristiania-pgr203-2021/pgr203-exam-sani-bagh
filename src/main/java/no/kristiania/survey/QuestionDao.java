@@ -50,21 +50,8 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
-    public List<String> listQuestionTitle() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select title from question")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<String> result = new ArrayList<>();
-                    while (rs.next()) {
-                        result.add(rs.getString("title"));
-                    }
-                    return result;
-                }
-            }
-        }
-    }
 
-    /*
+
     public List<Question> listQuestionByTitle(String title) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from question where title= ?")) {
@@ -81,7 +68,7 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
-     */
+
 
     public void save(Question question) throws SQLException {
 

@@ -10,10 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SurveyDaoTest {
 
     private SurveyDao dao = new SurveyDao(TestData.testDataSource());
-    QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-    QuestionDaoTest questionDaoTest = new QuestionDaoTest();
-    AnswerDaoTest answerAlternativesDaoTest = new AnswerDaoTest();
-    AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+
 
 
 
@@ -22,12 +19,7 @@ public class SurveyDaoTest {
         for (int i=0; i < 4; i++) {
             dao.save(exampleSurvey());
         }
-        for (int k = 0; k < 4; k++) {
-            questionDao.save(questionDaoTest.exampleQuestion());
-        }
-        for (int j=0; j < 4; j++) {
-            answerDao.save(answerAlternativesDaoTest.exampleAnswerAlternatives());
-        }
+
     }
 
 
@@ -58,8 +50,6 @@ public class SurveyDaoTest {
     public static Survey exampleSurvey() {
         Survey survey = new Survey();
         survey.setTitle(TestData.pickOne("Survey 1", "Survey 2", "Survey 3", "Survey 4"));
-        survey.setQuestionId(TestData.pickOneLong(1, 2, 3, 4));
-        survey.setAnswerId(TestData.pickOneLong(1, 2, 3, 4));
 
         return survey;
     }

@@ -26,15 +26,12 @@ public class SurveyDao extends AbsractDao<Survey>{
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into survey(title, question_id, answer_id) values (?, " +
-                            "(select question_id from question where question_id = ?), " +
-                            "(select answer_id from answerAlternatives where answer_id = ?))",
+                    "insert into survey(title) values (?)",
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
                 statement.setString(1, survey.getTitle());
-                statement.setLong(2, survey.getQuestionId());
-                statement.setLong(3, survey.getAnswerId());
+
 
 
                 statement.executeUpdate();
