@@ -78,12 +78,7 @@ public class QuestionDao extends AbsractDao<Question>{
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
-                statement.setString(1, question.getTitle());
-                statement.setString(2, question.getText());
-                statement.setString(3, question.getAnswerOne());
-                statement.setString(4, question.getAnswerTwo());
-                statement.setString(5, question.getAnswerThree());
-                statement.setLong(6, question.getSurvey_ID());
+                setStatement(question, statement);
 
 
                 statement.executeUpdate();
@@ -110,12 +105,7 @@ public class QuestionDao extends AbsractDao<Question>{
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
-                statement.setString(1, question.getTitle());
-                statement.setString(2, question.getText());
-                statement.setString(3, question.getAnswerOne());
-                statement.setString(4, question.getAnswerTwo());
-                statement.setString(5, question.getAnswerThree());
-                statement.setLong(6, question.getSurvey_ID());
+                setStatement(question, statement);
 
 
                 statement.executeUpdate();
@@ -128,6 +118,14 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
+    private void setStatement(Question question, PreparedStatement statement) throws SQLException {
+        statement.setString(1, question.getTitle());
+        statement.setString(2, question.getText());
+        statement.setString(3, question.getAnswerOne());
+        statement.setString(4, question.getAnswerTwo());
+        statement.setString(5, question.getAnswerThree());
+        statement.setLong(6, question.getSurvey_ID());
+    }
 
 
 }

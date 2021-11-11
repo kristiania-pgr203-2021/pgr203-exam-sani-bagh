@@ -14,27 +14,25 @@
 </div>
 <h1>Update Survey</h1>
 <form method="POST" action="/api/updateSurvey">
-    <div class="select_div">
-        Survey: <select id="questionTitle" name="questionTitle" />
-    </div>
+
+
     <div>
-        <h2>Update Survey</h2>
-
+        <label class="select_div">
+            Velg tittel: <select id="questionTitle" name="questionTitle" />
+        </label>
         <label >Tast inn en tittel:</label><br>
-        <input type="text" id="fstittel" name="fstittel"><br>
+        <input type="text" id="fstittel" name="fstittel" placeholder="Spørsmål tittel"><br>
         <label >Tast inn et Spørsmål:</label><br>
-        <input type="text" id="fspm" name="fspm"><br>
+        <input type="text" id="fspm" name="fspm" placeholder="Spørsmål text"><br>
         <label >Tast inn svar:</label><br>
-        <input type="text" id="answeren" name="answerEn"><br><br>
+        <input type="text" id="answeren" name="answerEn" placeholder="Svar en"><br><br>
         <label >Tast inn svar:</label><br>
-        <input type="text" id="answerto" name="answerTo"><br><br>
+        <input type="text" id="answerto" name="answerTo" placeholder="Svar to"><br><br>
         <label >Tast inn svar:</label><br>
-        <input type="text" id="answertre" name="answerTre"><br><br>
-        <input type="submit" value="Submit">
-
+        <input type="text" id="answertre" name="answerTre" placeholder="Svar tre"><br><br>
 
     </div>
-    <button class="add_btn">Add</button>
+    <button class="add_btn">Submit</button>
 </form>
 </body>
 <script>
