@@ -36,6 +36,8 @@ public class SurveyServer {
       //  httpServer.addController("/api/showSurvey", new TakeSurveyController(questionDao));
         httpServer.addController("/api/saveAnswer", new SaveAnswerController(answerDao));
 
+        httpServer.addController("/api/surveyList", new QuestionOptionController(questionDao));
+
 
         httpServer.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
 

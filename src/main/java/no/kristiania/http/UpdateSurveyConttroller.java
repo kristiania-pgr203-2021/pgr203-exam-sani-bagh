@@ -24,7 +24,7 @@ public class UpdateSurveyConttroller implements HttpController {
         question.setAnswerOne(queryMap.get("answerEn"));
         question.setAnswerTwo(queryMap.get("answerTo"));
         question.setAnswerThree(queryMap.get("answerTre"));
-        question.setSurvey_ID(Integer.parseInt(queryMap.get("questionTitle")));
+        question.setSurvey_ID(Long.parseLong(queryMap.get("questionTitle")));
         questionDao.update(question);
 
         return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/updateSurvey.html");
