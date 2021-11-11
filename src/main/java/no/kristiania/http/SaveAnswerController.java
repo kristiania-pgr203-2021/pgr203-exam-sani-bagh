@@ -20,7 +20,7 @@ public class SaveAnswerController implements HttpController {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Answer answer = new Answer();
         answer.setAnswerText(queryMap.get("answer"));
-        answer.setQuestion_ID(Integer.parseInt(queryMap.get("questions_Id")));
+        answer.setQuestion_ID(Long.parseLong(queryMap.get("questions_Id")));
         answerDao.save(answer);
 
 

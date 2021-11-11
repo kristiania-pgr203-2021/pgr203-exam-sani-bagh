@@ -25,7 +25,7 @@ public class ListQuestionsController implements HttpController {
             messageBody +=  "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" +
                     "<h4 class='box'>" + question.getText() + "</h4>" +
                     "<label for ='one'>" +
-                    "<input type=hidden name='questions_Id' value='" + id + "'> " +
+                    "<input type=hidden name='questions_Id' value='" + id + "'/> " +
                     "<label for='one'>" + "<input type='radio' id='one' name='answer' value='" + question.getAnswerOne() + "'/>" + question.getAnswerOne() +  "</label><br>" +
                     "<label for='two'>" + "<input type='radio' id='two' name='answer' value='" + question.getAnswerTwo() + "'/>" + question.getAnswerTwo() + "</label><br>" +
                     "<label for='three'>" + "<input type='radio' id='three' name='answer' value='" + question.getAnswerThree() + "'/>" + question.getAnswerThree() +  "</label><br>" +
