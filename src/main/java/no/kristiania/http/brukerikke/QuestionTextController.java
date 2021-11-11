@@ -1,11 +1,13 @@
-package no.kristiania.http;
+package no.kristiania.http.brukerikke;
 
+import no.kristiania.http.HttpController;
+import no.kristiania.http.HttpMessage;
 import no.kristiania.survey.QuestionDao;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class QuestionTextController implements HttpController{
+public class QuestionTextController implements HttpController {
     private final QuestionDao questionDao;
 
     public QuestionTextController(QuestionDao questionDao) {

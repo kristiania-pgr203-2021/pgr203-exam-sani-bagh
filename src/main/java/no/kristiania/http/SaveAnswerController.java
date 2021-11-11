@@ -20,13 +20,13 @@ public class SaveAnswerController implements HttpController {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Answer answer = new Answer();
         answer.setAnswerText(queryMap.get("answer"));
-        answer.setQuestion_ID(Integer.parseInt(queryMap.get("questions_ID")));
+        answer.setQuestion_ID(Integer.parseInt(queryMap.get("questions_Id")));
         answerDao.save(answer);
 
 
 
 
-        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/createSurvey.html");
+        return new HttpMessage("HTTP/1.1 303 See Other", "Location", "/takeSurvey.html");
     }
 }
 

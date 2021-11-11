@@ -19,7 +19,7 @@ public class UserAnswerDaoTest {
     private AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
 
 
-
+/*
     @BeforeEach
     void initialSave() throws SQLException {
         for (int i = 0; i < 10; i++) {
@@ -68,5 +68,5 @@ public class UserAnswerDaoTest {
         userAnswer.setAnswerID(TestData.pickOneLong(1, 2, 3, 4));
 
         return userAnswer;
-    }
+    }*/
 }

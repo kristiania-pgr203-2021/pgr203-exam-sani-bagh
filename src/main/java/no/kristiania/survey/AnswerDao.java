@@ -41,10 +41,36 @@ public class AnswerDao extends AbsractDao<Answer>{
         return retrieveAbstract("select * from answerAlternatives where answer_id = ?", id);
     }
 
+
     public void save(Answer answer) throws SQLException {
-        String sql = "insert into answeralternatives (answer_text, question_id) values (?, ?)";
+        try (Connection connection = dataSource.getConnection()) {
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "insert into answer (answer_text, question_id) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            )) {
+                preparedStatement.setString(1, answer.getAnswerText());
+                preparedStatement.setLong(2, answer.getQuestion_ID());
+
+
+                preparedStatement.executeUpdate();
+
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    generatedKeys.next();
+                    answer.setAnswerId(generatedKeys.getLong("answer_id"));
+
+                }
+            }
+        }
+    }
+
+    /*
+    public void save(Answer answer) throws SQLException {
+        String sql = "insert into answer (answer_text, question_id) values (?, ?)";
         super.saveAndUpdateWithStatement(answer, sql);
     }
+
+
 
     /*
 

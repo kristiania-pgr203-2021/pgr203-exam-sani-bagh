@@ -1,12 +1,14 @@
 package no.kristiania.http;
 
+import no.kristiania.http.HttpController;
+import no.kristiania.http.HttpMessage;
 import no.kristiania.survey.Question;
 import no.kristiania.survey.QuestionDao;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ListQuestionsController implements HttpController{
+public class ListQuestionsController implements HttpController {
 
     private final QuestionDao questionDao;
 
@@ -20,11 +22,16 @@ public class ListQuestionsController implements HttpController{
 
         for (Question question : questionDao.listAll()) {
             long id = question.getQuestionId();
-            messageBody +=  "<h4>" + id + ":" + question.getTitle() + "</h4>" + "\n" + "<h4> Question: " + question.getText() + "</h4>" + "\n" +
-                    "<h4> Answer one: " + question.getAnswerOne() + "</h4>" +  "\n" +
-                    "<h4>Answer two: " + question.getAnswerTwo() + "</h4>" + "\n" +
-                    "<h4>Answer three: " + question.getAnswerThree() + "</h4>";
+            messageBody +=  "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" +
+                    "<h4 class='box'>" + question.getText() + "</h4>" +
+                    "<label for ='one'>" +
+                    "<input type=hidden name='questions_Id' value='" + id + "'> " +
+                    "<label for='one'>" + "<input type='radio' id='one' name='answer' value='" + question.getAnswerOne() + "'/>" + question.getAnswerOne() +  "</label><br>" +
+                    "<label for='two'>" + "<input type='radio' id='two' name='answer' value='" + question.getAnswerTwo() + "'/>" + question.getAnswerTwo() + "</label><br>" +
+                    "<label for='three'>" + "<input type='radio' id='three' name='answer' value='" + question.getAnswerThree() + "'/>" + question.getAnswerThree() +  "</label><br>" +
+                    "</label>";
         }
+
 
 
         return new HttpMessage("HTTP/1.1 200 OK", messageBody);

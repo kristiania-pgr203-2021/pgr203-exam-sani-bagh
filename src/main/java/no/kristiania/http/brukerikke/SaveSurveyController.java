@@ -1,5 +1,7 @@
-package no.kristiania.http;
+package no.kristiania.http.brukerikke;
 
+import no.kristiania.http.HttpController;
+import no.kristiania.http.HttpMessage;
 import no.kristiania.survey.Survey;
 import no.kristiania.survey.SurveyDao;
 
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class SaveSurveyController implements HttpController{
+public class SaveSurveyController implements HttpController {
     private final SurveyDao surveyDao;
 
     public SaveSurveyController(SurveyDao surveyDao) {
@@ -17,9 +19,9 @@ public class SaveSurveyController implements HttpController{
 
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
-            Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
+       //     Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
             Survey survey = new Survey();
-            survey.setTitle(queryMap.get("title"));
+         //   survey.setTitle(queryMap.get("title"));
             surveyDao.save(survey);
 
             String responseText = survey.getTitle();

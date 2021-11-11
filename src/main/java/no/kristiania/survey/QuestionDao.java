@@ -22,6 +22,7 @@ public class QuestionDao extends AbsractDao<Question>{
         super.saveAndUpdateWithStatement(question, sql);
     }
 
+
     public void update(Question question) throws SQLException {
         String sql = "UPDATE question " +
                 "SET title = ?, " +

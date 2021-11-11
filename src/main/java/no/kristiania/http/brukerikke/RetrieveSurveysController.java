@@ -1,5 +1,7 @@
-package no.kristiania.http;
+package no.kristiania.http.brukerikke;
 
+import no.kristiania.http.HttpController;
+import no.kristiania.http.HttpMessage;
 import no.kristiania.survey.Survey;
 import no.kristiania.survey.SurveyDao;
 

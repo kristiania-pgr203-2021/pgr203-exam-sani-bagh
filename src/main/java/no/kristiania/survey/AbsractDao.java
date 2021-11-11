@@ -30,7 +30,27 @@ public abstract class AbsractDao<T> {
         }
     }
 
+    public void save(Answer answer, Question question) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
 
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "insert into answer (answer, question_id) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            )) {
+                preparedStatement.setString(1, answer.getAnswerText());
+                preparedStatement.setLong(2, question.getSurvey_ID());
+
+
+                preparedStatement.executeUpdate();
+
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    generatedKeys.next();
+                    answer.setQuestion_ID(generatedKeys.getLong("id"));
+
+                }
+            }
+        }
+    }
 
 
     public void saveAndUpdateWithStatement(T object, String sql) throws SQLException {
@@ -38,6 +58,7 @@ public abstract class AbsractDao<T> {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS
             )) {
+                setStatement(object, statement);
                 setStatement(object, statement);
 
 

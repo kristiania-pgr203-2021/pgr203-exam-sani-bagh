@@ -42,11 +42,13 @@ public class UserAnswerDao extends AbsractDao<UserAnswer>{
     public List<UserAnswer> listAll() throws SQLException {
         return listAllWithPreparedStatement("select * from userAnswer");
     }
-
+/*
     public void save(UserAnswer userAnswer) throws SQLException {
         String sql = "insert into userAnswer(user_id, survey_id, question_id, answer_id) values (?, ?, ?, ?)";
         super.saveAndUpdateWithStatement(userAnswer, sql);
     }
+
+ */
 
 
     /*
