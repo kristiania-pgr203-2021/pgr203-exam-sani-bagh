@@ -20,17 +20,22 @@ public class ListQuestionsController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         String messageBody = "";
 
+
         for (Question question : questionDao.listAll()) {
             long id = question.getQuestionId();
+
             messageBody +=  "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" +
                     "<h4 class='box'>" + question.getText() + "</h4>" +
                     "<label for ='one'>" +
-                    "<input type=hidden name='questions_Id' value='" + id + "'> " +
-                    "<label for='one'>" + "<input type='radio' id='one' name='answer' value='" + question.getAnswerOne() + "'/>" + question.getAnswerOne() +  "</label><br>" +
-                    "<label for='two'>" + "<input type='radio' id='two' name='answer' value='" + question.getAnswerTwo() + "'/>" + question.getAnswerTwo() + "</label><br>" +
-                    "<label for='three'>" + "<input type='radio' id='three' name='answer' value='" + question.getAnswerThree() + "'/>" + question.getAnswerThree() +  "</label><br>" +
+                    "<input type=hidden name='questions_Id"+ id + "' value='" + id +"'> " +
+                    "<label for='one'>" + "<input type='radio' id='one' name='answer" + id + "' value='" + question.getAnswerOne() + "'/>" + question.getAnswerOne() +  "</label><br>" +
+                    "<label for='two'>" + "<input type='radio' id='two' name='answer" + id + "' value='" + question.getAnswerTwo() + "'/>" + question.getAnswerTwo() + "</label><br>" +
+                    "<label for='three'>" + "<input type='radio' id='three' name='answer" + id + "' value='" + question.getAnswerThree() + "'/>" + question.getAnswerThree() +  "</label><br>" +
                     "</label>";
         }
+
+
+
 
 
 

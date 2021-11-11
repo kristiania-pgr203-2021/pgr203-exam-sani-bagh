@@ -28,7 +28,7 @@ public class HttpServer {
                 handleClient();
 
             } catch (IOException | SQLException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
                 System.out.println("500 internal server error");
             }
         }

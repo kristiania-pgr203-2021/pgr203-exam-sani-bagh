@@ -18,8 +18,11 @@ public class SaveAnswerController implements HttpController {
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, UnsupportedEncodingException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
+        for (Map.Entry<String, String> set : queryMap.entrySet()) {
+            System.out.println(set.getKey() + " = " + set.getValue());
+        }
         Answer answer = new Answer();
-        answer.setAnswerText(queryMap.get("answer"));
+        answer.setAnswerText(queryMap.get("answer'" + answer.getAnswerId()));
         answer.setQuestion_ID(Integer.parseInt(queryMap.get("questions_Id")));
         answerDao.save(answer);
 
