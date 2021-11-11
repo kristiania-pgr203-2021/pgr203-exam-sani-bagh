@@ -23,7 +23,7 @@ public class CreateSurveyController implements HttpController{
         question.setAnswerOne(queryMap.get("answerEn"));
         question.setAnswerTwo(queryMap.get("answerTo"));
         question.setAnswerThree(queryMap.get("answerTre"));
-        question.setSurvey_ID(Integer.parseInt(queryMap.get("questions")));
+        question.setSurvey_ID(Long.parseLong(queryMap.get("questions")));
         questionDao.save(question);
 
 
