@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.List;
 
 public class SurveyUserDao extends AbsractDao<SurveyUser>{
-    protected SurveyUserDao(DataSource dataSource) {
+    public SurveyUserDao(DataSource dataSource) {
         super(dataSource);
     }
 

@@ -26,7 +26,7 @@ public class ControllerTest {
 
 
     @Test
-    void shouldReturnSurveyTitleOptions() throws SQLException, IOException {
+    void shouldReturnSurveyTitleAsDropdownOptions() throws SQLException, IOException {
         SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
         Survey survey = new Survey();
         Survey survey1 = new Survey();
@@ -48,7 +48,7 @@ public class ControllerTest {
     }
 
     @Test
-    void shouldReturnQuestionTitleAsOption() throws SQLException, IOException {
+    void shouldReturnQuestionTitleAsDropdownOption() throws SQLException, IOException {
         QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
         Question question1 = new Question();
         question1.setTitle("Question title 1");
