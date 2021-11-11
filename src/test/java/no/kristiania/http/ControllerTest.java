@@ -1,7 +1,6 @@
 package no.kristiania.http;
 
 import no.kristiania.survey.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -45,6 +44,43 @@ public class ControllerTest {
 
         assertEquals("<option value=1>Survey title 1</option><option value=2>Survey title 2</option>" +
                         "<option value=3>Survey title 3</option>",
+                client.getMessageBody());
+    }
+
+    @Test
+    void shouldReturnQuestionTitleAsOption() throws SQLException, IOException {
+        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+        Question question1 = new Question();
+        question1.setTitle("Question title 1");
+        question1.setText("Text 1");
+        question1.setAnswerOne("Answer 1");
+        question1.setAnswerTwo("Answer 2");
+        question1.setAnswerThree("Answer 3");
+        question1.setSurvey_ID(1);
+        questionDao.save(question1);
+        Question question2 = new Question();
+        question2.setTitle("Question title 2");
+        question2.setText("Text 2");
+        question2.setAnswerOne("Answer 1");
+        question2.setAnswerTwo("Answer 2");
+        question2.setAnswerThree("Answer 3");
+        question2.setSurvey_ID(2);
+        questionDao.save(question2);
+        Question question3 = new Question();
+        question3.setTitle("Question title 3");
+        question3.setText("Text 3");
+        question3.setAnswerOne("Answer 1");
+        question3.setAnswerTwo("Answer 2");
+        question3.setAnswerThree("Answer 3");
+        question3.setSurvey_ID(3);
+        questionDao.save(question3);
+
+        server.addController("/api/surveyList", new QuestionOptionController(questionDao));
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/surveyList");
+
+        assertEquals("<option value=1>Question title 1</option><option value=2>Question title 2</option>" +
+                        "<option value=3>Question title 3</option>",
                 client.getMessageBody());
     }
 
