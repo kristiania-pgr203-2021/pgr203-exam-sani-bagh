@@ -10,6 +10,11 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
     }
 
     @Override
+    protected void setGeneratedKeyStatement(SurveyUser surveyUser, ResultSet rs) throws SQLException {
+        surveyUser.setUserId(rs.getLong("user_id"));
+    }
+
+    @Override
     protected SurveyUser readFromResultSet(ResultSet rs) throws SQLException {
         SurveyUser surveyUser = new SurveyUser();
         surveyUser.setUserId(rs.getLong("user_id"));
@@ -19,6 +24,19 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
         return surveyUser;
     }
 
+    @Override
+    protected void setStatement(SurveyUser surveyUser, PreparedStatement statement) throws SQLException {
+        statement.setString(1, surveyUser.getFirstName());
+        statement.setString(2, surveyUser.getLastName());
+        statement.setString(3, surveyUser.getEmail());
+    }
+
+    public void save(SurveyUser surveyUser) throws SQLException {
+        String sql = "insert into SurveyUser (first_name, last_name, email) values (?, ?, ?)";
+        super.saveAndUpdateWithStatement(surveyUser, sql);
+    }
+
+    /*
     public void save(SurveyUser surveyUser) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
@@ -27,9 +45,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
-                statement.setString(1, surveyUser.getFirstName());
-                statement.setString(2, surveyUser.getLastName());
-                statement.setString(3, surveyUser.getEmail());
+                setStatement(surveyUser, statement);
 
                 statement.executeUpdate();
 
@@ -40,6 +56,8 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
             }
         }
     }
+
+     */
 
     @Override
     public List<SurveyUser> listAll() throws SQLException {

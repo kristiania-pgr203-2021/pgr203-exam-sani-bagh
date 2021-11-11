@@ -15,13 +15,22 @@ public class SurveyDao extends AbsractDao<Survey>{
     }
 
     @Override
+    protected void setGeneratedKeyStatement(Survey survey, ResultSet rs) throws SQLException {
+        survey.setId(rs.getLong("survey_id"));
+    }
+
+    @Override
     public Survey retrieve(long id) throws SQLException {
         return retrieveAbstract("select * from survey where survey_id = ?", id);
-        
 
     }
 
+    public void save(Survey survey) throws SQLException {
+        String sql = "insert into survey(title) values (?)";
+        super.saveAndUpdateWithStatement(survey, sql);
+    }
 
+    /*
     public void save(Survey survey) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
@@ -30,7 +39,7 @@ public class SurveyDao extends AbsractDao<Survey>{
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
-                statement.setString(1, survey.getTitle());
+                setStatement(survey, statement);
 
 
 
@@ -44,6 +53,8 @@ public class SurveyDao extends AbsractDao<Survey>{
         }
     }
 
+     */
+
 
 
 
@@ -53,6 +64,11 @@ public class SurveyDao extends AbsractDao<Survey>{
     survey.setTitle(rs.getString("title"));
 
         return survey;
+    }
+
+    @Override
+    protected void setStatement(Survey survey, PreparedStatement statement) throws SQLException {
+        statement.setString(1, survey.getTitle());
     }
 
     @Override

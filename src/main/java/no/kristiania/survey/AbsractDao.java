@@ -1,10 +1,7 @@
 package no.kristiania.survey;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,32 @@ public abstract class AbsractDao<T> {
 
 
 
+
+    public void saveAndUpdateWithStatement(T object, String sql) throws SQLException {
+
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS
+            )) {
+                setStatement(object, statement);
+
+
+                statement.executeUpdate();
+
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    rs.next();
+                    setGeneratedKeyStatement(object, rs);
+                }
+            }
+        }
+    }
+
+    protected abstract void setGeneratedKeyStatement(T object, ResultSet rs) throws SQLException;
+
+
+
     protected abstract T readFromResultSet(ResultSet rs) throws SQLException;
+
+    protected abstract void setStatement(T object, PreparedStatement statement) throws SQLException;
 
     public abstract List<T> listAll() throws SQLException;
 

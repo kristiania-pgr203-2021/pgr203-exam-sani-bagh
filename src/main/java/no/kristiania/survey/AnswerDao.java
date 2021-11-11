@@ -9,6 +9,11 @@ public class AnswerDao extends AbsractDao<Answer>{
     }
 
     @Override
+    protected void setGeneratedKeyStatement(Answer answer, ResultSet rs) throws SQLException {
+        answer.setAnswerId(rs.getLong("answer_id"));
+    }
+
+    @Override
     protected Answer readFromResultSet(ResultSet rs) throws SQLException {
         Answer answer = new Answer();
         answer.setAnswerId(rs.getLong("answer_id"));
@@ -17,6 +22,12 @@ public class AnswerDao extends AbsractDao<Answer>{
 
         return answer;
 
+    }
+
+    @Override
+    protected void setStatement(Answer answer, PreparedStatement statement) throws SQLException {
+        statement.setString(1, answer.getAnswerText());
+        statement.setLong(2, answer.getQuestion_ID());
     }
 
     @Override
@@ -31,6 +42,13 @@ public class AnswerDao extends AbsractDao<Answer>{
     }
 
     public void save(Answer answer) throws SQLException {
+        String sql = "insert into answeralternatives (answer_text, question_id) values (?, ?)";
+        super.saveAndUpdateWithStatement(answer, sql);
+    }
+
+    /*
+
+    public void save(Answer answer) throws SQLException {
 
        // Question question = new Question();
         try (Connection connection = dataSource.getConnection()) {
@@ -39,8 +57,7 @@ public class AnswerDao extends AbsractDao<Answer>{
                     Statement.RETURN_GENERATED_KEYS
 
             )) {
-                statement.setString(1, answer.getAnswerText());
-                statement.setLong(2, answer.getQuestion_ID());
+                setStatement(answer, statement);
 
                 statement.executeUpdate();
 
@@ -51,6 +68,8 @@ public class AnswerDao extends AbsractDao<Answer>{
             }
         }
     }
+
+     */
 
 
 }

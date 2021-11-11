@@ -10,6 +10,11 @@ public class UserAnswerDao extends AbsractDao<UserAnswer>{
     }
 
     @Override
+    protected void setGeneratedKeyStatement(UserAnswer object, ResultSet rs) throws SQLException {
+
+    }
+
+    @Override
     public UserAnswer retrieve(long id) throws SQLException {
         return retrieveAbstract("select * from userAnswer where user_answer_id = ?", id);
     }
@@ -26,10 +31,25 @@ public class UserAnswerDao extends AbsractDao<UserAnswer>{
     }
 
     @Override
+    protected void setStatement(UserAnswer userAnswer, PreparedStatement statement) throws SQLException {
+        statement.setLong(1, userAnswer.getUserId());
+        statement.setLong(2, userAnswer.getSurveyId());
+        statement.setLong(3, userAnswer.getQuestionId());
+        statement.setLong(4, userAnswer.getAnswerID());
+    }
+
+    @Override
     public List<UserAnswer> listAll() throws SQLException {
         return listAllWithPreparedStatement("select * from userAnswer");
     }
 
+    public void save(UserAnswer userAnswer) throws SQLException {
+        String sql = "insert into userAnswer(user_id, survey_id, question_id, answer_id) values (?, ?, ?, ?)";
+        super.saveAndUpdateWithStatement(userAnswer, sql);
+    }
+
+
+    /*
 
     public void save(UserAnswer userAnswer) throws SQLException {
 
@@ -59,6 +79,8 @@ public class UserAnswerDao extends AbsractDao<UserAnswer>{
             }
         }
     }
+
+     */
 
 
 

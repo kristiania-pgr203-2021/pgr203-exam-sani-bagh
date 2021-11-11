@@ -13,6 +13,29 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
     @Override
+    protected void setGeneratedKeyStatement(Question question, ResultSet rs) throws SQLException {
+        question.setQuestionId(rs.getLong("question_id"));
+    }
+
+    public void save(Question question) throws SQLException {
+        String sql = "insert into question(title, text, answerOne, answerTwo, answerThree, survey_id ) values (?, ?, ?, ?, ?, ?)";
+        super.saveAndUpdateWithStatement(question, sql);
+    }
+
+    public void update(Question question) throws SQLException {
+        String sql = "UPDATE question " +
+                "SET title = ?, " +
+                "text = ?, " +
+                "answerone = ?, " +
+                "answertwo= ?, " +
+                "answerthree= ? " +
+                "WHERE question_id = ?";
+        super.saveAndUpdateWithStatement(question, sql);
+    }
+
+
+
+    @Override
     protected Question readFromResultSet(ResultSet rs) throws SQLException {
         Question question = new Question();
 
@@ -69,7 +92,7 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
 
-
+/*
     public void save(Question question) throws SQLException {
 
         try (Connection connection = dataSource.getConnection()) {
@@ -91,6 +114,9 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
+ */
+
+/*
 
     public void update(Question question) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -118,7 +144,10 @@ public class QuestionDao extends AbsractDao<Question>{
         }
     }
 
-    private void setStatement(Question question, PreparedStatement statement) throws SQLException {
+ */
+
+    @Override
+    protected void setStatement(Question question, PreparedStatement statement) throws SQLException {
         statement.setString(1, question.getTitle());
         statement.setString(2, question.getText());
         statement.setString(3, question.getAnswerOne());
