@@ -101,7 +101,7 @@ public class ControllerTest {
         @Test
         void shouldListQuestions() throws SQLException, IOException {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-            server.addController("/api/questions", new ListQuestionsController(questionDao));
+            server.addController("/api/questions", new ListQuestionsForSurvey(questionDao));
 
             Question question1 = QuestionDaoTest.exampleQuestion();
             Question question2 = QuestionDaoTest.exampleQuestion();

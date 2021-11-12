@@ -10,7 +10,7 @@
     <button class="btn"><a href=".">Return to front page</a></button>
 </div>
 <h1>Here are all the questions</h1>
-<form method="GET" action="/api/allQuestions">
+<form method="GET" action="/api/questions">
     <div id="questions" class="questions">
 
     </div>
@@ -19,7 +19,7 @@
 
 </body>
 <script>
-    fetch("/api/allQuestions").then(function(resp) {
+    fetch("/api/questions").then(function(resp) {
         return resp.text();
     }).then(function (text) {
         document.getElementById("questions").innerHTML = text;

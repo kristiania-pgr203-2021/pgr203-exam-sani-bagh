@@ -1,6 +1,5 @@
 package no.kristiania.http;
 
-import no.kristiania.http.brukerikke.TakeSurveyController;
 import no.kristiania.survey.AnswerDao;
 import no.kristiania.survey.QuestionDao;
 import no.kristiania.survey.SurveyDao;
@@ -28,11 +27,12 @@ public class SurveyServer {
 
         HttpServer httpServer = new HttpServer(1962);
         httpServer.addController("/api/surveyOptions", new SurveyOptionsController(surveyDao));
-        httpServer.addController("/api/createSurvey", new CreateSurveyController(questionDao));
+        httpServer.addController("/api/questions", new CreateSurveyController(questionDao));
+        httpServer.addController("/api/questions", new ListAllSavedQuestionsController(questionDao));
 
         httpServer.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
 
-        httpServer.addController("/api/showQuestions", new ListQuestionsController(questionDao));
+        httpServer.addController("/api/showQuestions", new ListQuestionsForSurvey(questionDao));
       //  httpServer.addController("/api/showSurvey", new TakeSurveyController(questionDao));
         httpServer.addController("/api/saveAnswer", new SaveAnswerController(answerDao));
 

@@ -8,11 +8,11 @@ import no.kristiania.survey.QuestionDao;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ListQuestionsController implements HttpController {
+public class ListQuestionsForSurvey implements HttpController {
 
     private final QuestionDao questionDao;
 
-    public ListQuestionsController(QuestionDao questionDao) {
+    public ListQuestionsForSurvey(QuestionDao questionDao) {
         this.questionDao=questionDao;
     }
 
