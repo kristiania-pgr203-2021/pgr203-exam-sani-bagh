@@ -19,7 +19,7 @@
 
 </body>
 <script>
-    fetch("/api/questions").then(function(resp) {
+    fetch("/api/allQuestions").then(function(resp) {
         return resp.text();
     }).then(function (text) {
         document.getElementById("questions").innerHTML = text;
