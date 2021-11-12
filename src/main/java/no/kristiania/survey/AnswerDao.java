@@ -32,7 +32,7 @@ public class AnswerDao extends AbsractDao<Answer>{
 
     @Override
     public List<Answer> listAll() throws SQLException {
-        return super.listAllWithPreparedStatement("SELECT * FROM answer");
+        return super.listWithPreparedStatement("SELECT * FROM answer");
     }
 
 

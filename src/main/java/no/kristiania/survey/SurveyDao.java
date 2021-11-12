@@ -30,33 +30,6 @@ public class SurveyDao extends AbsractDao<Survey>{
         super.saveAndUpdateWithStatement(survey, sql);
     }
 
-    /*
-    public void save(Survey survey) throws SQLException {
-
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into survey(title) values (?)",
-                    Statement.RETURN_GENERATED_KEYS
-
-            )) {
-                setStatement(survey, statement);
-
-
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    survey.setId(rs.getLong("survey_id"));
-                }
-            }
-        }
-    }
-
-     */
-
-
-
 
     public Survey readFromResultSet(ResultSet rs) throws SQLException {
     Survey survey = new Survey();
@@ -73,6 +46,6 @@ public class SurveyDao extends AbsractDao<Survey>{
 
     @Override
     public List<Survey> listAll() throws SQLException {
-        return listAllWithPreparedStatement("select * from survey");
+        return listWithPreparedStatement("select * from survey");
     }
 }

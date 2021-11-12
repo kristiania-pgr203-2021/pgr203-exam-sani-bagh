@@ -83,7 +83,7 @@ public abstract class AbsractDao<T> {
     public abstract List<T> listAll() throws SQLException;
 
 
-    protected List<T> listAllWithPreparedStatement(String sql) throws SQLException {
+    protected List<T> listWithPreparedStatement(String sql) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet rs = statement.executeQuery()) {
@@ -96,6 +96,7 @@ public abstract class AbsractDao<T> {
             }
         }
     }
+
 
     public abstract T retrieve(long id) throws SQLException;
 }

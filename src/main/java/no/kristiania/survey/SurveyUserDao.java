@@ -36,32 +36,10 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
         super.saveAndUpdateWithStatement(surveyUser, sql);
     }
 
-    /*
-    public void save(SurveyUser surveyUser) throws SQLException {
-
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into SurveyUser (first_name, last_name, email) values (?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-
-            )) {
-                setStatement(surveyUser, statement);
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    surveyUser.setUserId(rs.getLong("user_id"));
-                }
-            }
-        }
-    }
-
-     */
 
     @Override
     public List<SurveyUser> listAll() throws SQLException {
-        return listAllWithPreparedStatement("select * from SurveyUser");
+        return listWithPreparedStatement("select * from SurveyUser");
     }
 
 

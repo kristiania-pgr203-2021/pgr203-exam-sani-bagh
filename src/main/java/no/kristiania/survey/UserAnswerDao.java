@@ -40,7 +40,7 @@ public class UserAnswerDao extends AbsractDao<UserAnswer>{
 
     @Override
     public List<UserAnswer> listAll() throws SQLException {
-        return listAllWithPreparedStatement("select * from userAnswer");
+        return listWithPreparedStatement("select * from userAnswer");
     }
 /*
     public void save(UserAnswer userAnswer) throws SQLException {

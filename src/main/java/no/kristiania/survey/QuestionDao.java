@@ -53,28 +53,13 @@ public class QuestionDao extends AbsractDao<Question>{
 
     @Override
     public List<Question> listAll() throws SQLException {
-        return super.listAllWithPreparedStatement("SELECT * FROM question");
+        return super.listWithPreparedStatement("SELECT * FROM question");
     }
+
 
     public Question retrieve(long id) throws SQLException {
         return retrieveAbstract("select * from question where question_id = ?", id);
     }
-
-    public List<String> listQuestionText() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select text from question")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<String> result = new ArrayList<>();
-                    while (rs.next()) {
-                        result.add(rs.getString("text"));
-                    }
-                    return result;
-                }
-            }
-        }
-    }
-
-
 
     public List<Question> listQuestionByTitle(String title) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -93,59 +78,7 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
 
-/*
-    public void save(Question question) throws SQLException {
 
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into question(title, text, answerOne, answerTwo, answerThree, survey_id ) values (?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-
-            )) {
-                setStatement(question, statement);
-
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    question.setQuestionId(rs.getLong("question_id"));
-                }
-            }
-        }
-    }
-
- */
-
-/*
-
-    public void update(Question question) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE question " +
-                            "SET title = ?, " +
-                            "text = ?, " +
-                            "answerone = ?, " +
-                            "answertwo= ?, " +
-                            "answerthree= ? " +
-                            "WHERE question_id = ?",
-                    Statement.RETURN_GENERATED_KEYS
-
-            )) {
-                setStatement(question, statement);
-
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    question.setQuestionId(rs.getLong("question_id"));
-                }
-            }
-        }
-    }
-
- */
 
     @Override
     protected void setStatement(Question question, PreparedStatement statement) throws SQLException {
