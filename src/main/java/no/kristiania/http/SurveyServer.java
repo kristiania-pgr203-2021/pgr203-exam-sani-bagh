@@ -27,8 +27,9 @@ public class SurveyServer {
 
         HttpServer httpServer = new HttpServer(1962);
         httpServer.addController("/api/surveyOptions", new SurveyOptionsController(surveyDao));
-        httpServer.addController("/api/createSurvey", new CreateSurveyController(questionDao));
-        httpServer.addController("/api/questions", new ListAllSavedQuestionsController(questionDao));
+        httpServer.addController("POST /api/questions", new CreateSurveyController(questionDao));
+        httpServer.addController("GET /api/questions", new ListAllSavedQuestionsController(questionDao));
+
 
         httpServer.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
 

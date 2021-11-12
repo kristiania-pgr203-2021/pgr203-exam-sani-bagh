@@ -73,6 +73,19 @@ public class HttpServer {
             writeOkResponse(clientSocket, responseText, contentType);
             return;
         }
+        if (httpMessage.startLine.startsWith("GET")){
+            if (controllers.containsKey("GET "+fileTarget)) {
+                HttpMessage response = controllers.get("GET "+fileTarget).handle(httpMessage);
+                response.write(clientSocket);
+                return;
+            }
+        }else if (httpMessage.startLine.startsWith("POST")){
+            if (controllers.containsKey("POST "+fileTarget)) {
+                HttpMessage response = controllers.get("POST "+fileTarget).handle(httpMessage);
+                response.write(clientSocket);
+                return;
+            }
+        }
 
         String responseText = "File not found: " + requestTarget;
 
