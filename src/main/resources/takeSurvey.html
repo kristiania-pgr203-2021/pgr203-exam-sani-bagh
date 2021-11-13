@@ -43,10 +43,6 @@
 </div>
 
 
-<div class="select_div">
-    Survey: <select id="questionss" name="questionss" />
-</div>
-
 
 
 
@@ -73,12 +69,7 @@
         document.getElementById("newUser").innerHTML = text;
     });*/
 
-    fetch("/api/surveyOption")
-        .then(function(response) {
-            return response.text();
-        }).then(function(text) {
-        document.getElementById("questionss").innerHTML = text;
-    });
+
 
     fetch("/api/showQuestions").then(function(response) {
         return response.text();
