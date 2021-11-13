@@ -10,46 +10,84 @@
     <button class="btn"><a href=".">Return to front page</a></button>
 </div>
 
-<div>
-<h1>Register your name and email to take survey</h1>
-<form method="POST" action="/api/newUser">
-    <div>
-        First name: <input type="text" name="first_name"/>
-    </div>
-    <div>
-        Last name: <input type="text" name="last_name"/>
-    </div>
-    <div>
-        Email: <input type="text" name="email"/>
-    </div>
 
-    <button class="btn">Submit</button>
-</form>
-</div>
 
 <div>
-<h1>Answer the questions</h1>
-<form method="POST" action="/api/saveAnswer">
-    <div class="select_div">
-        Survey: <select id="questions" name="questions" />
-    </div>
 
-    <div id="question" class="questions">
+    <h1>Answer the questions</h1>
+    <form method="POST" action="/api/saveAnswer">
 
-    </div>
 
-    <input class="btn" type="submit" value="Submit">
-</form>
+        <div id="question" class="questions">
+
+        </div>
+
+        <input class="btn" type="submit" value="Submit">
+    </form>
 </div>
+
+
+<div class="select_div">
+    Survey: <select id="questionss" name="questionss" />
+</div>
+
+
+
+
+<div>
+    <h1>Register your name and email to take survey</h1>
+    <form method="POST" action="/api/newUser">
+        <div>
+            First name: <input type="text" name="first_name"/>
+        </div>
+        <div>
+            Last name: <input type="text" name="last_name"/>
+        </div>
+        <div>
+            Email: <input type="text" name="email"/>
+        </div>
+
+        <button class="btn">Submit</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
 
 
 </body>
 <script>
-    fetch("/api/showQuestions").then(function(resp) {
-        return resp.text();
+
+
+    fetch("/api/addUser")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("newUser").innerHTML = text;
+    });
+
+    fetch("/api/surveyOption")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("questionss").innerHTML = text;
+    });
+
+    fetch("/api/showQuestions").then(function(response) {
+        return response.text();
     }).then(function (text) {
-        document.getElementById("questions").innerHTML = text;
-    })
+        document.getElementById("question").innerHTML = text;
+    });
+
+
+
+
 </script>
-</script>
+
 </html>
