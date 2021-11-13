@@ -19,6 +19,8 @@ public class AnswerDao extends AbsractDao<Answer>{
         answer.setAnswerId(rs.getLong("answer_id"));
         answer.setAnswerText(rs.getString("answer_text"));
         answer.setQuestion_ID(rs.getLong("question_id"));
+        answer.setSurvey_ID(rs.getLong("survey_id"));
+        answer.setUser_ID(rs.getLong("user_id"));
 
         return answer;
 
