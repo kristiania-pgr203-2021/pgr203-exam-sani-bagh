@@ -11,6 +11,22 @@
 </div>
 
 
+<div>
+    <h1>Register your name and email to take survey</h1>
+    <form method="POST" action="/api/newUser">
+        <div>
+            First name: <input type="text" name="first_name"/>
+        </div>
+        <div>
+            Last name: <input type="text" name="last_name"/>
+        </div>
+        <div>
+            Email: <input type="text" name="email"/>
+        </div>
+
+        <button class="btn">Submit</button>
+    </form>
+</div>
 
 <div>
 
@@ -34,22 +50,7 @@
 
 
 
-<div>
-    <h1>Register your name and email to take survey</h1>
-    <form method="POST" action="/api/newUser">
-        <div>
-            First name: <input type="text" name="first_name"/>
-        </div>
-        <div>
-            Last name: <input type="text" name="last_name"/>
-        </div>
-        <div>
-            Email: <input type="text" name="email"/>
-        </div>
 
-        <button class="btn">Submit</button>
-    </form>
-</div>
 
 
 
@@ -65,12 +66,12 @@
 <script>
 
 
-    fetch("/api/addUser")
+    /*fetch("/api/addUser")
         .then(function(response) {
             return response.text();
         }).then(function(text) {
         document.getElementById("newUser").innerHTML = text;
-    });
+    });*/
 
     fetch("/api/surveyOption")
         .then(function(response) {

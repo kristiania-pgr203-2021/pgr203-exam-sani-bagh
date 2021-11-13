@@ -32,7 +32,7 @@ public class SurveyUserDao extends AbsractDao<SurveyUser>{
     }
 
     public void save(SurveyUser surveyUser) throws SQLException {
-        String sql = "insert into SurveyUser (first_name, last_name, email) values (?, ?, ?)";
+        String sql = "insert into surveyU (first_name, last_name, email) values (?, ?, ?)";
         super.saveAndUpdateWithStatement(surveyUser, sql);
     }
 
