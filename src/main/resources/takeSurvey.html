@@ -27,13 +27,14 @@
 </form>
 </div>
 
-
-
-
 <div>
 <h1>Answer the questions</h1>
 <form method="POST" action="/api/saveAnswer">
-    <div id="questions" class="questions">
+    <div class="select_div">
+        Survey: <select id="questions" name="questions" />
+    </div>
+
+    <div id="question" class="questions">
 
     </div>
 
@@ -50,14 +51,5 @@
         document.getElementById("questions").innerHTML = text;
     })
 </script>
-
-
-<script>
-    fetch("/api/addUser")
-        .then(function(response) {
-            return response.text();
-        }).then(function(text) {
-        document.getElementById("users").innerHTML = text;
-    });
 </script>
 </html>
