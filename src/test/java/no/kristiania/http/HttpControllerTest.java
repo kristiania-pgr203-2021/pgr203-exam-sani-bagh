@@ -117,7 +117,7 @@ public class HttpControllerTest {
 
 
         @Test
-        void shouldListQuestions() throws SQLException, IOException {
+        void shouldListAllSavedQuestions() throws SQLException, IOException {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
             server.addController("/api/questions", new ListAllSavedQuestionsController(questionDao));
 
@@ -142,6 +142,37 @@ public class HttpControllerTest {
         }
 
         @Test
+        void shouldListQuestionsForSurvey() throws SQLException, IOException {
+            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+            server.addController("/api/showQuestions", new ListQuestionsForSurvey(questionDao));
+
+            Question questionOne = QuestionDaoTest.exampleQuestion();
+            Question questionTwo = QuestionDaoTest.exampleQuestion();
+            questionDao.save(questionOne);
+            questionDao.save(questionTwo);
+
+            HttpClient client = new HttpClient("localhost", server.getPort(), "/api/showQuestions");
+
+            assertThat(client.getMessageBody())
+                    .contains("<h1 class='box'> Question " + questionOne.getQuestionId() + ": " + questionOne.getTitle() + "</h1>" +
+                            "<h4 class='box'>" + questionOne.getText() + "</h4>" +
+                            "<label for ='one'>" +
+                            "<input type=hidden name='questions_Id" + questionOne.getQuestionId() + "' value='" + questionOne.getQuestionId() + "'> " +
+                            "<label for='one'>" + "<input type='radio' id='one' name='answer" + questionOne.getQuestionId() + "' value='" + questionOne.getAnswerOne() + "'/>" + questionOne.getAnswerOne() + "</label><br>" +
+                            "<label for='two'>" + "<input type='radio' id='two' name='answer" + questionOne.getQuestionId() + "' value='" + questionOne.getAnswerTwo() + "'/>" + questionOne.getAnswerTwo() + "</label><br>" +
+                            "<label for='three'>" + "<input type='radio' id='three' name='answer" + questionOne.getQuestionId() + "' value='" + questionOne.getAnswerThree() + "'/>" + questionOne.getAnswerThree() + "</label><br>" +
+                            "</label>")
+                    .contains("<h1 class='box'> Question " + questionTwo.getQuestionId() + ": " + questionTwo.getTitle() + "</h1>" +
+                            "<h4 class='box'>" + questionTwo.getText() + "</h4>" +
+                            "<label for ='one'>" +
+                            "<input type=hidden name='questions_Id" + questionTwo.getQuestionId() + "' value='" + questionTwo.getQuestionId() + "'> " +
+                            "<label for='one'>" + "<input type='radio' id='one' name='answer" + questionTwo.getQuestionId() + "' value='" + questionTwo.getAnswerOne() + "'/>" + questionTwo.getAnswerOne() + "</label><br>" +
+                            "<label for='two'>" + "<input type='radio' id='two' name='answer" + questionTwo.getQuestionId() + "' value='" + questionTwo.getAnswerTwo() + "'/>" + questionTwo.getAnswerTwo() + "</label><br>" +
+                            "<label for='three'>" + "<input type='radio' id='three' name='answer" + questionTwo.getQuestionId() + "' value='" + questionTwo.getAnswerThree() + "'/>" + questionTwo.getAnswerThree() + "</label><br>" +
+                            "</label>");
+        }
+
+        @Test
         void shouldCreateSurvey() throws IOException, SQLException {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
             server.addController("/api/createSurvey", new CreateSurveyController(questionDao));
@@ -162,9 +193,6 @@ public class HttpControllerTest {
                         assertThat(q.getAnswerThree()).isEqualTo("Answer3");
                         assertThat(q.getSurvey_ID()).isEqualTo(1);
                     });
-
-
-
 
         }
 

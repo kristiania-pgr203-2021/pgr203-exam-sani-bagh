@@ -14,13 +14,13 @@ public class AnswerDaoTest {
 
     @BeforeEach
     void initialSave() throws SQLException {
-        for (int n=0; n < 10; n++) {
+        for (int n=0; n < 4; n++) {
             surveyDao.save(SurveyDaoTest.exampleSurvey());
         }
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<4; i++) {
             questionDao.save(QuestionDaoTest.exampleQuestion());
         }
-        for (int j=0; j<10; j++) {
+        for (int j=0; j<4; j++) {
             answerDao.save(exampleAnswer());
         }
     }

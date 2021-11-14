@@ -23,7 +23,7 @@ public class ListQuestionsForSurvey implements HttpController {
         for (Question question : questionDao.listAll()) {
             long id = question.getQuestionId();
 
-            messageBody += "<h1 class='box'> Spørsmål " + id + ": " + question.getTitle() + "</h1>" +
+            messageBody += "<h1 class='box'> Question " + id + ": " + question.getTitle() + "</h1>" +
                     "<h4 class='box'>" + question.getText() + "</h4>" +
                     "<label for ='one'>" +
                     "<input type=hidden name='questions_Id" + id + "' value='" + id + "'> " +
