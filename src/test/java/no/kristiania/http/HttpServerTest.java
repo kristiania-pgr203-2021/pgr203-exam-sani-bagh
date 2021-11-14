@@ -1,12 +1,10 @@
 package no.kristiania.http;
 
-import no.kristiania.survey.Question;
-import no.kristiania.survey.QuestionDao;
-import no.kristiania.survey.QuestionDaoTest;
-import no.kristiania.survey.TestData;
+import no.kristiania.survey.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -60,6 +58,7 @@ public class HttpServerTest {
         assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html")
                 .getStatusCode());
     }
+
 
 
 }

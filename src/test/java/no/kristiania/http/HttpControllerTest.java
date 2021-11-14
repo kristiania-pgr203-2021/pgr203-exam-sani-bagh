@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ControllerTest {
+public class HttpControllerTest {
 
     private final HttpServer server = new HttpServer(0);
 
-    public ControllerTest() throws IOException {
+    public HttpControllerTest() throws IOException {
     }
 
 
@@ -23,6 +23,24 @@ public class ControllerTest {
 
 
     private SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
+
+
+    @Test
+    void shouldCreateSurveyTitle() throws IOException, SQLException {
+        SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
+        server.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
+
+        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/surveys", "title=Title1"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(surveyDao.listAll())
+                .anySatisfy(s -> {
+                    assertThat(s.getTitle()).isEqualTo("Title1");
+
+                });
+
+    }
 
 
     @Test
@@ -146,23 +164,9 @@ public class ControllerTest {
                     });
 
 
-        }
 
-        @Test
-        void shouldCreateSurveyTitle() throws IOException, SQLException {
-            SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
-            server.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
-
-            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/surveys", "title=Title1"
-            );
-
-            assertEquals(303, postClient.getStatusCode());
-            assertThat(surveyDao.listAll())
-                    .anySatisfy(s -> {
-                        assertThat(s.getTitle()).isEqualTo("Title1");
-
-                    });
 
         }
-}
+
+    }
 }

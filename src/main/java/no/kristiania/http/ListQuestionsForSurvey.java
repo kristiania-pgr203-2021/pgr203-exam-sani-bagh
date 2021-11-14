@@ -1,7 +1,6 @@
 package no.kristiania.http;
 
-import no.kristiania.http.HttpController;
-import no.kristiania.http.HttpMessage;
+
 import no.kristiania.survey.Question;
 import no.kristiania.survey.QuestionDao;
 

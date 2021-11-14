@@ -50,30 +50,4 @@ public class AnswerDao extends AbsractDao<Answer>{
 
 
 
-    /*
-
-    public void save(Answer answer) throws SQLException {
-
-       // Question question = new Question();
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into answeralternatives (answer_text, question_id) values (?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-
-            )) {
-                setStatement(answer, statement);
-
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.getGeneratedKeys()) {
-                    rs.next();
-                    answer.setAnswerId(rs.getLong("answer_id"));
-                }
-            }
-        }
-    }
-
-     */
-
-
 }
