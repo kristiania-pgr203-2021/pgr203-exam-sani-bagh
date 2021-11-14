@@ -1,13 +1,17 @@
 package no.kristiania.http;
 
 
+import no.kristiania.survey.SurveyDao;
+import no.kristiania.survey.TestData;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -66,7 +70,7 @@ public class HttpServerTest {
         assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html")
                 .getStatusCode());
     }
-    /*
+
 
     @Test
     void shouldReturnCorrectEncoding() throws IOException, SQLException {
@@ -74,7 +78,7 @@ public class HttpServerTest {
         server.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
 
 
-        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/surveys", "title=Spørsmål+tittel"
+        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/surveys", "title=Spørsmål tittel"
         );
 
         assertEquals(303, postClient.getStatusCode());
@@ -85,5 +89,5 @@ public class HttpServerTest {
                 });
     }
 
-     */
+
 }

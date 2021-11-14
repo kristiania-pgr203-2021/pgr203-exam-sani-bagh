@@ -188,8 +188,8 @@ public class HttpControllerTest {
             server.addController("/api/createSurvey", new CreateSurveyController(questionDao));
 
 
-            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/createSurvey", "fstittel=Title+1&fspm=" +
-                    "Text+1&answerEn=Answer+1&answerTo=Answer+2&answerTre=Answer+3&questions=1"
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/createSurvey", "fstittel=Title 1&fspm=" +
+                    "Text 1&answerEn=Answer 1&answerTo=Answer 2&answerTre=Answer 3&questions=1"
             );
 
             assertEquals(303, postClient.getStatusCode());
@@ -211,8 +211,8 @@ public class HttpControllerTest {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
             server.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
 
-            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/updateSurvey", "fstittel=New+Title&fspm=New+question&answerEn=New" +
-                    "+Answer1&answerTo=New+Answer2&answerTre=New+Answer3&" +
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/updateSurvey", "fstittel=New Title&fspm=New question&answerEn=New" +
+                    " Answer1&answerTo=New Answer2&answerTre=New Answer3&" +
                     "questionTitle=1");
 
             assertEquals(303, postClient.getStatusCode());
@@ -274,7 +274,7 @@ public class HttpControllerTest {
             server.addController("/api/saveAnswer", new SaveAnswerController(answerDao));
 
             HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/saveAnswer",
-                    "answer1=Saved+answer&questions_Id=1");
+                    "answer1=Saved answer&questions_Id=1");
 
             assertEquals(303, postClient.getStatusCode());
 
