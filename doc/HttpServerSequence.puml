@@ -3,25 +3,11 @@
 actor Browser
 participant HttpServer
 participant CreateSurveyController
-participant CreateSurveyTitleController
-participant UpdateSurveyController
-participant ListQuestionsForSurvey
-participant QuestionOptionController
 participant SaveAnswerController
-participant SurveyOptionsController
+participant controllers
 participant QuestionDao
+participant AnswerDao
 database survey_db
-
-
-Browser --> HttpServer: POST /api/surveys
-HttpServer -> controllers: get ("/api/surveys")
-HttpServer <-- controllers: CreateSurveyTitleController
-HttpServer -> CreateSurveyTitleController: handle
-CreateSurveyTitleController -> CreateSurveyTitleController: Survey survey = new Survey()
-CreateSurveyTitleController -> CreateSurveyTitleController: survey.setTitle(parameters.get("title"));
-CreateSurveyTitleController -> SurveyDao: save(survey);
-SurveyDao -> Survey_db: Insert into survey ...
-Browser <-- HttpServer: 303 Location: firstStepSurvey.html
 
 
 Browser --> HttpServer: POST /api/questions
@@ -39,23 +25,16 @@ CreateSurveyController -> QuestionDao: save(question);
 QuestionDao -> Survey_db: INSERT INTO QUESTION ...
 Browser <-- HttpServer: 303 Location: createSurvey.html
 
-Browser --> HttpServer: POST /api/updateSurvey
-HttpServer -> controllers: get ("/api/updateSurvey")
-HttpServer <-- controllers: UpdateSurveyController
-HttpServer -> UpdateSurveyController: handle
-UpdateSurveyController -> UpdateSurveyController: Question question = new Question()
-UpdateSurveyController -> UpdateSurveyController: question.setTitle(queryMap.get("fstittel"));
-UpdateSurveyController -> UpdateSurveyController: question.setText(queryMap.get("fspm"));
-UpdateSurveyController -> UpdateSurveyController: question.setAnswerOne(queryMap.get("answerEn"));
-UpdateSurveyController -> UpdateSurveyController: question.setAnswerTwo(queryMap.get("answerTo"));
-UpdateSurveyController -> UpdateSurveyController: question.setAnswerThree(queryMap.get("answerTre"));
-UpdateSurveyController -> UpdateSurveyController: question.setSurvey_ID(Long.parseLong(queryMap.get("questionTitle")));
-UpdateSurveyController -> QuestionDao: update(question)
-QuestionDao -> Survey_db: UPDATE question SET ...
-Browser <-- HttpServer: 303 Location: updateSurvey.html
-
-Browser --> HttpServer: /api/showQuestions
-HttpServer -> controllers: get("/api/showQuestions")
+Browser --> HttpServer: POST /api/saveAnswer
+HttpServer -> controllers: get ("/api/saveAnswer")
+HttpServer <-- controllers: SaveAnswerController
+HttpServer -> SaveAnswerController: handle
+SaveAnswerController -> SaveAnswerController: Answer answer = new Answer()
+SaveAnswerController -> SaveAnswerController: answer.setAnswerText(ans);
+SaveAnswerController -> SaveAnswerController: answer.setQuestion_ID(Integer.parseInt(id.replace("answer", "")));
+SaveAnswerController -> AnswerDao: save(answer);
+AnswerDao -> Survey_db: INSERT into answer ...
+Browser <-- HttpServer: 303 Location: takeSurvey.html
 
 
 

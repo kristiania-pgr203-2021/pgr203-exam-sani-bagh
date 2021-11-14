@@ -1,9 +1,12 @@
 package no.kristiania.http;
 
 import no.kristiania.survey.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -141,6 +144,35 @@ public class HttpControllerTest {
 
         }
 
+        /*
+        @Test
+        void shouldListQuestionsWithAnswers() throws SQLException, IOException {
+            AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+            server.addController("/api/answerAndQuestion", new ListAllAnswersController(answerDao, questionDao));
+
+            Question question = QuestionDaoTest.exampleQuestion();
+            Question question2 = QuestionDaoTest.exampleQuestion();
+            Answer answer = AnswerDaoTest.exampleAnswer();
+            Answer answer2 = AnswerDaoTest.exampleAnswer();
+            questionDao.save(question);
+            questionDao.save(question2);
+            answerDao.save(answer);
+            answerDao.save(answer2);
+
+            HttpClient client = new HttpClient("localhost", server.getPort(),"/api/answerAndQuestion");
+            assertThat(client.getMessageBody())
+                    .contains("<h1>" + question.getTitle() + "</h1>" +
+                            "<h3>" + question.getText() + "</h3>" +
+                            "<ul><li>" + answer.getAnswerText() + "</li></ul>")
+                    .contains("<h1>" + question.getTitle() + "</h1>" +
+                            "<h3>" + question.getText() + "</h3>" +
+                            "<ul><li>" + answer.getAnswerText() + "</li></ul>");
+        }
+
+         */
+
+
         @Test
         void shouldListQuestionsForSurvey() throws SQLException, IOException {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
@@ -218,6 +250,7 @@ public class HttpControllerTest {
                     });
         }
 
+        /*
         @Test
         void shouldSaveAnswers() throws IOException, SQLException {
             AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
@@ -236,5 +269,7 @@ public class HttpControllerTest {
 
 
         }
+
+         */
     }
 }
