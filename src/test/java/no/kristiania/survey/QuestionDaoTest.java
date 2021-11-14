@@ -20,7 +20,7 @@ public class QuestionDaoTest {
 
     @BeforeEach
     void initialSave() throws SQLException {
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<4; i++) {
             surveyDao.save(SurveyDaoTest.exampleSurvey());
         }
         for (int j=0; j<4; j++) {
@@ -66,20 +66,20 @@ public class QuestionDaoTest {
     }
 
     @Test
-    void shouldListQuestionsByTitle() throws SQLException {
+    void shouldListQuestionsBySurveyId() throws SQLException {
         Question questionOne = exampleQuestion();
-        questionOne.setTitle("Example title");
+        questionOne.setSurvey_ID(2);
         dao.save(questionOne);
 
         Question questionTwo = exampleQuestion();
-        questionTwo.setTitle(questionOne.getTitle());
+        questionTwo.setSurvey_ID(questionOne.getSurvey_ID());
         dao.save(questionTwo);
 
         Question nonMatchingQuestion = exampleQuestion();
         dao.save(nonMatchingQuestion);
 
 
-        assertThat(dao.listQuestionByTitle(questionOne.getTitle()))
+        assertThat(dao.listQuestionBySurveyId(questionOne.getSurvey_ID()))
                 .extracting(Question::getQuestionId)
                 .contains(questionOne.getQuestionId(), questionTwo.getQuestionId())
                 .doesNotContain(nonMatchingQuestion.getQuestionId());
@@ -93,7 +93,7 @@ public class QuestionDaoTest {
         question.setAnswerOne(TestData.pickOne("Answer 1", "Answer 2", "Answer 3", "Answer 4"));
         question.setAnswerTwo(TestData.pickOne("Answer 1", "Answer 2", "Answer 3", "Answer 4"));
         question.setAnswerThree(TestData.pickOne("Answer 1", "Answer 2", "Answer 3", "Answer 4"));
-        question.setSurvey_ID(TestData.pickOneLong(1, 2, 3, 4));
+        question.setSurvey_ID(TestData.pickOneLong(1, 1, 3, 4));
 
         return question;
 

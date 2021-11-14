@@ -35,7 +35,6 @@ public class QuestionDao extends AbsractDao<Question>{
     }
 
 
-
     @Override
     protected Question readFromResultSet(ResultSet rs) throws SQLException {
         Question question = new Question();
@@ -61,15 +60,16 @@ public class QuestionDao extends AbsractDao<Question>{
         return retrieveAbstract("select * from question where question_id = ?", id);
     }
 
-    public List<Question> listQuestionByTitle(String title) throws SQLException {
+
+    public List<Question> listQuestionBySurveyId(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from question where title= ?")) {
-                statement.setString(1, title);
+            try (PreparedStatement statement = connection.prepareStatement("select * from question where survey_id= ?")) {
+                statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Question> questions = new ArrayList<>();
                     while (rs.next()) {
                         questions.add(readFromResultSet(rs));
-                }
+                    }
 
                     return questions;
                 }

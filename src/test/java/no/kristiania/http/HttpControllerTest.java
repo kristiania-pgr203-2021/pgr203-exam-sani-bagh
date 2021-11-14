@@ -231,8 +231,10 @@ public class HttpControllerTest {
             assertThat(answerDao.listAll())
                     .anySatisfy(a -> {
                         assertThat(a.getAnswerText()).isEqualTo("Saved answer");
-                        assertThat(a.getQuestion_ID()).isEqualTo(Integer.parseInt("2"));
+                        assertThat(a.getQuestion_ID()).isEqualTo(1);
                     });
+
+
         }
     }
 }
