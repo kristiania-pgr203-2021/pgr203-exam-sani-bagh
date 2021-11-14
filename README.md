@@ -7,7 +7,8 @@ Først må du installere JDK på systemet ditt. Importer deretter dette prosjekt
 
 Etter at du har åpnet prosjekt load maven project. Da Åpne Maven -> Lifesycle -> og kjør Clean etter det kjør Package for å bygge opp jar fil. Når jar fil er bygget opp åpne terminalen på IntelliJ og kjør java -jar target\Survey-1.0-SNAPSHOT.jar
 
-![image](https://user-images.githubusercontent.com/77112342/141699678-19794d6c-eb27-45cf-a2e5-1e5c04af2a1a.png)
+![image](https://user-images.githubusercontent.com/77112342/141699765-310ad6eb-834c-4803-b51e-7cf34d2118b4.png)
+
 ![image](https://user-images.githubusercontent.com/77112342/141699726-14f1cfbb-883b-417d-9b59-9904708fc8c9.png)
 
 
