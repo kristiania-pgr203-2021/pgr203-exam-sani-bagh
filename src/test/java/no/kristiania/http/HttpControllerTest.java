@@ -267,14 +267,14 @@ public class HttpControllerTest {
                             "<ul>" + answer4.getAnswerText() + "</ul>");
         }
 
-        /*
+
         @Test
         void shouldSaveAnswers() throws IOException, SQLException {
             AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
             server.addController("/api/saveAnswer", new SaveAnswerController(answerDao));
 
             HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/saveAnswer",
-                    "answer=Saved+answer&questions_Id=1");
+                    "answer1=Saved+answer&questions_Id=1");
 
             assertEquals(303, postClient.getStatusCode());
 
@@ -287,6 +287,6 @@ public class HttpControllerTest {
 
         }
 
-         */
+
     }
 }
