@@ -19,9 +19,9 @@ class Question {
 Survey "1" - "*" Question
 
 class Answer {
-    survey_id: long
-    quetion_id: long
     answer_id: long
+    answer_text: String
+    question_id: long
 }
 
 Question "1" - "1" Answer
@@ -34,13 +34,5 @@ class SurveyUser {
     email: String
 }
 
-class SurveyUserAnswer {
-    userId: long
-    survey_id: long
-    quetion_id: long
-    answer_id: long
-}
-
-SurveyUser "0" -- "*" SurveyUserAnswer
 
 @enduml

@@ -207,6 +207,23 @@ public class HttpControllerTest {
         }
 
         @Test
+        void shouldCreateUser() throws IOException, SQLException {
+            SurveyUserDao userDao = new SurveyUserDao(TestData.testDataSource());
+            server.addController("/api/newUser",new UserRegisterController(userDao));
+
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/newUser",
+                    "first_name=Test name&last_name=Test last name&email=example@email");
+
+            assertEquals(303, postClient.getStatusCode());
+            assertThat(userDao.listAll())
+                    .anySatisfy(u -> {
+                        assertThat(u.getFirstName()).isEqualTo("Test name");
+                        assertThat(u.getLastName()).isEqualTo("Test last name");
+                        assertThat(u.getEmail()).isEqualTo("example@email");
+                    });
+        }
+
+        @Test
         void shouldUpdateSurvey() throws IOException, SQLException {
             QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
             server.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
@@ -237,34 +254,28 @@ public class HttpControllerTest {
             Question question = QuestionDaoTest.exampleQuestion();
             Question question2 = QuestionDaoTest.exampleQuestion();
             Question question3 = QuestionDaoTest.exampleQuestion();
-            Question question4 = QuestionDaoTest.exampleQuestion();
             Answer answer = AnswerDaoTest.exampleAnswer();
             Answer answer2 = AnswerDaoTest.exampleAnswer();
             Answer answer3 = AnswerDaoTest.exampleAnswer();
-            Answer answer4 = AnswerDaoTest.exampleAnswer();
             questionDao.save(question);
             questionDao.save(question2);
             questionDao.save(question3);
-            questionDao.save(question4);
             answerDao.save(answer);
             answerDao.save(answer2);
             answerDao.save(answer3);
-            answerDao.save(answer4);
 
             HttpClient client = new HttpClient("localhost", server.getPort(),"/api/answerAndQuestion");
             assertThat(client.getMessageBody())
                     .contains("<h1>" + question.getTitle() + "</h1>" +
-                            "<h3>" + question.getText() + "</h3>" +
-                            "<ul>" + answer.getAnswerText() + "</ul>")
+                            "<h3>" + question.getText() + "</h3>")
+                    .contains("<li>" + answer2.getAnswerText() + "</li>")
                     .contains("<h1>" + question2.getTitle() + "</h1>" +
-                            "<h3>" + question2.getText() + "</h3>" +
-                            "<ul>" + answer2.getAnswerText() + "</ul>")
+                            "<h3>" + question2.getText() + "</h3>")
+                    .contains("<li>" + answer2.getAnswerText() + "</li>")
                     .contains("<h1>" + question3.getTitle() + "</h1>" +
-                            "<h3>" + question3.getText() + "</h3>" +
-                            "<ul>" + answer3.getAnswerText() + "</ul>")
-                    .contains("<h1>" + question4.getTitle() + "</h1>" +
-                            "<h3>" + question4.getText() + "</h3>" +
-                            "<ul>" + answer4.getAnswerText() + "</ul>");
+                            "<h3>" + question3.getText() + "</h3>")
+                    .contains("<li>" + answer3.getAnswerText() + "</li>")
+            ;
         }
 
 
