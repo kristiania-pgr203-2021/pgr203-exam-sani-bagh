@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpServerTest {
@@ -30,6 +31,7 @@ public class HttpServerTest {
     void shouldRespondWithRequestTargetIn404() throws IOException {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals("File not found: /non-existing", client.getMessageBody());
+        assertEquals(404, client.getStatusCode());
     }
 
     @Test
@@ -50,6 +52,15 @@ public class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.html");
         assertEquals("text/html", client.getHeader("Content-Type"));
     }
+
+    @Test
+    void shouldRespondWith200ForKnownRT() throws IOException {
+        assertAll(
+                () -> assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html").getStatusCode()),
+                () -> assertEquals("text/html", new HttpClient("localhost", server.getPort(), "/index.html").getHeader("Content-Type"))
+        );
+    }
+
 
     @Test
     void shouldHandleMoreThanOneRequest() throws IOException {
