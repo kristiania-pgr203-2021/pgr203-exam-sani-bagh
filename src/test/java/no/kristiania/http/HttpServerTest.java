@@ -59,6 +59,20 @@ public class HttpServerTest {
                 .getStatusCode());
     }
 
+    @Test
+    void shouldReturnCorrectEncoding() throws IOException, SQLException {
+        SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
+        server.addController("/api/surveys", new CreateSurveyTitleController(surveyDao));
 
 
+        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/surveys", "title=Spørsmål+tittel"
+        );
+
+        assertEquals(303, postClient.getStatusCode());
+        assertThat(surveyDao.listAll())
+                .anySatisfy(s -> {
+                    assertThat(s.getTitle()).isEqualTo("Spørsmål tittel");
+
+                });
+    }
 }

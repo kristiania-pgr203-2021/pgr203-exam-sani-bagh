@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 public class QuestionDaoTest {
 
     private QuestionDao dao =new QuestionDao(TestData.testDataSource());
@@ -19,7 +20,7 @@ public class QuestionDaoTest {
 
     @BeforeEach
     void initialSave() throws SQLException {
-        for (int i=0; i<4; i++) {
+        for (int i=0; i<10; i++) {
             surveyDao.save(SurveyDaoTest.exampleSurvey());
         }
         for (int j=0; j<4; j++) {
@@ -38,7 +39,19 @@ public class QuestionDaoTest {
                 .isEqualTo(question);
     }
 
+    @Test
+    void shouldRetrieveUpdatedQuestion() throws SQLException {
+        Question question = exampleQuestion();
+        dao.save(question);
+        Question question1 = exampleUpdatedQuestion();
+        dao.update(question1);
 
+        assertThat(dao.retrieve(question1.getQuestionId()))
+                .hasNoNullFieldsOrProperties()
+                .usingRecursiveComparison()
+                .isNotEqualTo(question);
+
+    }
 
     @Test
     void shouldListAllQuestions() throws SQLException {
@@ -82,6 +95,19 @@ public class QuestionDaoTest {
         question.setAnswerThree(TestData.pickOne("Answer 1", "Answer 2", "Answer 3", "Answer 4"));
         question.setSurvey_ID(TestData.pickOneLong(1, 2, 3, 4));
 
+        return question;
+
+    }
+
+    public static Question exampleUpdatedQuestion() {
+        Question question = new Question();
+        question.setTitle(TestData.pickOne("New Title 1", "New Title 2", "New Title 3", "New Title 4"));
+        question.setText(TestData.pickOne("New Question 1", "New Question 2", "New Question 3", "New Question 4"));
+        question.setAnswerOne(TestData.pickOne("New Answer 1", "New Answer 2", "New Answer 3", "New Answer 4"));
+        question.setAnswerTwo(TestData.pickOne("New Answer 1", "New Answer 2", "New Answer 3", "New Answer 4"));
+        question.setAnswerThree(TestData.pickOne("New Answer 1", "New Answer 2", "New Answer 3", "New Answer 4"));
+
+        question.setSurvey_ID(TestData.pickOneLong(3, 5, 6, 7));
         return question;
 
     }

@@ -178,23 +178,61 @@ public class HttpControllerTest {
             server.addController("/api/createSurvey", new CreateSurveyController(questionDao));
 
 
-            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/createSurvey", "fstittel=Title1&fspm=" +
-                    "Text1&answerEn=Answer1&answerTo=Answer2&answerTre=Answer3&questions=1"
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/createSurvey", "fstittel=Title+1&fspm=" +
+                    "Text+1&answerEn=Answer+1&answerTo=Answer+2&answerTre=Answer+3&questions=1"
             );
 
             assertEquals(303, postClient.getStatusCode());
 
             assertThat(questionDao.listAll())
                     .anySatisfy(q -> {
-                        assertThat(q.getTitle()).isEqualTo("Title1");
-                        assertThat(q.getText()).isEqualTo("Text1");
-                        assertThat(q.getAnswerOne()).isEqualTo("Answer1");
-                        assertThat(q.getAnswerTwo()).isEqualTo("Answer2");
-                        assertThat(q.getAnswerThree()).isEqualTo("Answer3");
+                        assertThat(q.getTitle()).isEqualTo("Title 1");
+                        assertThat(q.getText()).isEqualTo("Text 1");
+                        assertThat(q.getAnswerOne()).isEqualTo("Answer 1");
+                        assertThat(q.getAnswerTwo()).isEqualTo("Answer 2");
+                        assertThat(q.getAnswerThree()).isEqualTo("Answer 3");
                         assertThat(q.getSurvey_ID()).isEqualTo(1);
                     });
 
         }
 
+        @Test
+        void shouldUpdateSurvey() throws IOException, SQLException {
+            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+            server.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
+
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/updateSurvey", "fstittel=New+Title&fspm=New+question&answerEn=New" +
+                    "+Answer1&answerTo=New+Answer2&answerTre=New+Answer3&" +
+                    "questionTitle=1");
+
+            assertEquals(303, postClient.getStatusCode());
+
+            assertThat(questionDao.listAll())
+                    .anySatisfy(q -> {
+                        assertThat(q.getTitle()).isEqualTo("New Title");
+                        assertThat(q.getText()).isEqualTo("New question");
+                        assertThat(q.getAnswerOne()).isEqualTo("New Answer1");
+                        assertThat(q.getAnswerTwo()).isEqualTo("New Answer2");
+                        assertThat(q.getAnswerThree()).isEqualTo("New Answer3");
+                        assertThat(q.getSurvey_ID()).isEqualTo(1);
+                    });
+        }
+
+        @Test
+        void shouldSaveAnswers() throws IOException, SQLException {
+            AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+            server.addController("/api/saveAnswer", new SaveAnswerController(answerDao));
+
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/saveAnswer",
+                    "answer=Saved+answer&questions_Id=1");
+
+            assertEquals(303, postClient.getStatusCode());
+
+            assertThat(answerDao.listAll())
+                    .anySatisfy(a -> {
+                        assertThat(a.getAnswerText()).isEqualTo("Saved answer");
+                        assertThat(a.getQuestion_ID()).isEqualTo(Integer.parseInt("2"));
+                    });
+        }
     }
 }
