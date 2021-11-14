@@ -3,7 +3,7 @@
 
 ## Beskriv hvordan programmet skal testes:
 Installasjon
-Først må du installere JDK på systemet ditt. Importer deretter dette prosjektet til IntelliJ. Du kan importere den fra git ved å klone/laste ned fra GitHub ved å bruke banen: https://github.com/kristiania-pgr203-2021/pgr203-exam-sani-bagh.git. Eller du kan laste ned prosjektet med alle filene som en zip-fil og pakke den ut.
+Først må du installere JDK på systemet ditt. Importer deretter dette prosjektet til IntelliJ. Du kan importere den fra git ved å klone/laste ned fra GitHub ved å bruke lenken: https://github.com/kristiania-pgr203-2021/pgr203-exam-sani-bagh.git. Eller du kan laste ned prosjektet med alle filene som en zip-fil og pakke den ut.
 
 Etter at du har åpnet prosjekt load maven project. Da Åpne Maven -> Lifesycle -> og kjør Clean etter det kjør Package for å bygge opp jar fil. Når jar fil er bygget opp åpne terminalen på IntelliJ og kjør java -jar target\Survey-1.0-SNAPSHOT.jar
 
