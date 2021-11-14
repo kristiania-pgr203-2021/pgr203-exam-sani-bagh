@@ -33,9 +33,7 @@ public class AnswerDao extends AbsractDao<Answer>{
 
     @Override
     public List<Answer> listAll() throws SQLException {
-        return super.listWithPreparedStatement("SELECT answer.answer_text, question.text  \n" +
-                "FROM answer INNER JOIN question  \n" +
-                "ON answer.question_id = question.question_id ");
+        return super.listWithPreparedStatement("SELECT * FROM answer");
     }
 
 
