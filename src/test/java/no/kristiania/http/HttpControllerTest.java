@@ -2,7 +2,6 @@ package no.kristiania.http;
 
 import no.kristiania.survey.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,8 @@ public class HttpControllerTest {
 
     private SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
 
+    private AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+
 
     @Test
     void shouldCreateSurveyTitle() throws IOException, SQLException {
@@ -42,7 +43,6 @@ public class HttpControllerTest {
                     assertThat(s.getTitle()).isEqualTo("Title1");
 
                 });
-
     }
 
 
@@ -105,6 +105,8 @@ public class HttpControllerTest {
                 client.getMessageBody());
     }
 
+
+
     @Nested
     class testWithInitSave {
 
@@ -144,33 +146,9 @@ public class HttpControllerTest {
 
         }
 
-        /*
-        @Test
-        void shouldListQuestionsWithAnswers() throws SQLException, IOException {
-            AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
-            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-            server.addController("/api/answerAndQuestion", new ListAllAnswersController(answerDao, questionDao));
 
-            Question question = QuestionDaoTest.exampleQuestion();
-            Question question2 = QuestionDaoTest.exampleQuestion();
-            Answer answer = AnswerDaoTest.exampleAnswer();
-            Answer answer2 = AnswerDaoTest.exampleAnswer();
-            questionDao.save(question);
-            questionDao.save(question2);
-            answerDao.save(answer);
-            answerDao.save(answer2);
 
-            HttpClient client = new HttpClient("localhost", server.getPort(),"/api/answerAndQuestion");
-            assertThat(client.getMessageBody())
-                    .contains("<h1>" + question.getTitle() + "</h1>" +
-                            "<h3>" + question.getText() + "</h3>" +
-                            "<ul><li>" + answer.getAnswerText() + "</li></ul>")
-                    .contains("<h1>" + question.getTitle() + "</h1>" +
-                            "<h3>" + question.getText() + "</h3>" +
-                            "<ul><li>" + answer.getAnswerText() + "</li></ul>");
-        }
 
-         */
 
 
         @Test
@@ -248,6 +226,45 @@ public class HttpControllerTest {
                         assertThat(q.getAnswerThree()).isEqualTo("New Answer3");
                         assertThat(q.getSurvey_ID()).isEqualTo(1);
                     });
+        }
+
+        @Test
+        void shouldListQuestionsWithAnswers() throws SQLException, IOException {
+            AnswerDao answerDao = new AnswerDao(TestData.testDataSource());
+            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+            server.addController("/api/answerAndQuestion", new ListAllAnswersController(answerDao, questionDao));
+
+            Question question = QuestionDaoTest.exampleQuestion();
+            Question question2 = QuestionDaoTest.exampleQuestion();
+            Question question3 = QuestionDaoTest.exampleQuestion();
+            Question question4 = QuestionDaoTest.exampleQuestion();
+            Answer answer = AnswerDaoTest.exampleAnswer();
+            Answer answer2 = AnswerDaoTest.exampleAnswer();
+            Answer answer3 = AnswerDaoTest.exampleAnswer();
+            Answer answer4 = AnswerDaoTest.exampleAnswer();
+            questionDao.save(question);
+            questionDao.save(question2);
+            questionDao.save(question3);
+            questionDao.save(question4);
+            answerDao.save(answer);
+            answerDao.save(answer2);
+            answerDao.save(answer3);
+            answerDao.save(answer4);
+
+            HttpClient client = new HttpClient("localhost", server.getPort(),"/api/answerAndQuestion");
+            assertThat(client.getMessageBody())
+                    .contains("<h1>" + question.getTitle() + "</h1>" +
+                            "<h3>" + question.getText() + "</h3>" +
+                            "<ul>" + answer.getAnswerText() + "</ul>")
+                    .contains("<h1>" + question2.getTitle() + "</h1>" +
+                            "<h3>" + question2.getText() + "</h3>" +
+                            "<ul>" + answer2.getAnswerText() + "</ul>")
+                    .contains("<h1>" + question3.getTitle() + "</h1>" +
+                            "<h3>" + question3.getText() + "</h3>" +
+                            "<ul>" + answer3.getAnswerText() + "</ul>")
+                    .contains("<h1>" + question4.getTitle() + "</h1>" +
+                            "<h3>" + question4.getText() + "</h3>" +
+                            "<ul>" + answer4.getAnswerText() + "</ul>");
         }
 
         /*

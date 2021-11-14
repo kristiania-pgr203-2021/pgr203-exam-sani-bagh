@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AnswerDaoTest {
@@ -24,6 +25,7 @@ public class AnswerDaoTest {
             answerDao.save(exampleAnswer());
         }
     }
+
 
     @Test
     void shouldRetrieveSavedAnswer() throws SQLException {
@@ -58,4 +60,5 @@ public class AnswerDaoTest {
         return answer;
 
     }
+
 }
