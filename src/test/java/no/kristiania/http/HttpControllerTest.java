@@ -109,27 +109,7 @@ public class HttpControllerTest {
 
 
 
-    @Test
-    void shouldUpdateSurvey() throws IOException, SQLException {
-        QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
-        server.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
 
-        HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/updateSurvey", "fstittel=New Title&fspm=New question&answerEn=New" +
-                " Answer1&answerTo=New Answer2&answerTre=New Answer3&" +
-                "questionTitle=1");
-
-        assertEquals(303, postClient.getStatusCode());
-
-        assertThat(questionDao.listAll())
-                .anySatisfy(q -> {
-                    assertThat(q.getTitle()).isEqualTo("New Title");
-                    assertThat(q.getText()).isEqualTo("New question");
-                    assertThat(q.getAnswerOne()).isEqualTo("New Answer1");
-                    assertThat(q.getAnswerTwo()).isEqualTo("New Answer2");
-                    assertThat(q.getAnswerThree()).isEqualTo("New Answer3");
-                    assertThat(q.getSurvey_ID()).isEqualTo(1);
-                });
-    }
 
 
      */
@@ -319,6 +299,28 @@ public class HttpControllerTest {
                     .anySatisfy(s -> {
                         assertThat(s.getTitle()).isEqualTo("Spørsmål tittel");
 
+                    });
+        }
+
+        @Test
+        void shouldUpdateSurvey() throws IOException, SQLException {
+            QuestionDao questionDao = new QuestionDao(TestData.testDataSource());
+            server.addController("/api/updateSurvey", new UpdateSurveyConttroller(questionDao));
+
+            HttpPostClient postClient = new HttpPostClient("localhost", server.getPort(), "/api/updateSurvey", "fstittel=New Title&fspm=New question&answerEn=New" +
+                    " Answer1&answerTo=New Answer2&answerTre=New Answer3&" +
+                    "questionTitle=1");
+
+            assertEquals(303, postClient.getStatusCode());
+
+            assertThat(questionDao.listAll())
+                    .anySatisfy(q -> {
+                        assertThat(q.getTitle()).isEqualTo("New Title");
+                        assertThat(q.getText()).isEqualTo("New question");
+                        assertThat(q.getAnswerOne()).isEqualTo("New Answer1");
+                        assertThat(q.getAnswerTwo()).isEqualTo("New Answer2");
+                        assertThat(q.getAnswerThree()).isEqualTo("New Answer3");
+                        //assertThat(q.getSurvey_ID()).isEqualTo(1L);
                     });
         }
 
