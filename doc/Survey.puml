@@ -1,0 +1,38 @@
+@startuml
+
+
+class Survey {
+    id: long
+    survey_title: String
+}
+
+class Question {
+    quetion_id
+    title: String
+    text: String
+    answerOne: String
+    answerTwo: String
+    answerTree: String
+    survey_id: long
+}
+
+Survey "1" - "*" Question
+
+class Answer {
+    answer_id: long
+    answer_text: String
+    question_id: long
+}
+
+Question "1" - "1" Answer
+
+
+class SurveyUser {
+    userId: long
+    firstName: String
+    lastName: String
+    email: String
+}
+
+
+@enduml
