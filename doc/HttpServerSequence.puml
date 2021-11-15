@@ -1,0 +1,41 @@
+@startuml
+
+actor Browser
+participant HttpServer
+participant CreateSurveyController
+participant SaveAnswerController
+participant controllers
+participant QuestionDao
+participant AnswerDao
+database survey_db
+
+
+Browser --> HttpServer: POST /api/questions
+HttpServer -> controllers: get ("/api/questions")
+HttpServer <-- controllers: CreateSurveyController
+HttpServer -> CreateSurveyController: handle
+CreateSurveyController -> CreateSurveyController: Question question = new Question()
+CreateSurveyController -> CreateSurveyController: question.setTitle(queryMap.get("fstittel"));
+CreateSurveyController -> CreateSurveyController: question.setText(queryMap.get("fspm"));
+CreateSurveyController -> CreateSurveyController: question.setAnswerOne(queryMap.get("answerEn"));
+CreateSurveyController -> CreateSurveyController: question.setAnswerTwo(queryMap.get("answerTo"));
+CreateSurveyController -> CreateSurveyController: question.setSurvey_ID(Long.parseLong(queryMap.get("questions")));
+CreateSurveyController -> CreateSurveyController: question.setText(queryMap.get("fspm"));
+CreateSurveyController -> QuestionDao: save(question);
+QuestionDao -> Survey_db: INSERT INTO QUESTION ...
+Browser <-- HttpServer: 303 Location: createSurvey.html
+
+Browser --> HttpServer: POST /api/saveAnswer
+HttpServer -> controllers: get ("/api/saveAnswer")
+HttpServer <-- controllers: SaveAnswerController
+HttpServer -> SaveAnswerController: handle
+SaveAnswerController -> SaveAnswerController: Answer answer = new Answer()
+SaveAnswerController -> SaveAnswerController: answer.setAnswerText(ans);
+SaveAnswerController -> SaveAnswerController: answer.setQuestion_ID(Integer.parseInt(id.replace("answer", "")));
+SaveAnswerController -> AnswerDao: save(answer);
+AnswerDao -> Survey_db: INSERT into answer ...
+Browser <-- HttpServer: 303 Location: takeSurvey.html
+
+
+
+@enduml

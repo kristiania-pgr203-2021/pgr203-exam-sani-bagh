@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Survey | List questions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+    <button class="btn"><a href="index.html">Return to front page</a></button>
+</div>
+<h1>Here are all the Answers</h1>
+
+    <div id="answerAndQuestion" class="answerAndQuestion">
+
+    </div>
+
+
+
+</body>
+<script>
+    fetch("/api/answerAndQuestion").then(function(resp) {
+        return resp.text();
+    }).then(function (text) {
+        document.getElementById("answerAndQuestion").innerHTML = text;
+    })
+</script>
+</html>

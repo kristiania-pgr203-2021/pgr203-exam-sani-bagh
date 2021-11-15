@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Survey | List questions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+    <button class="btn"><a href="index.html">Return to front page</a></button>
+    <button class="btn"><a href="listAllAnswers.html">List all questions and answers</a></button>
+</div>
+
+
+<div>
+    <h1>Register your name and email to take survey</h1>
+    <form method="POST" action="/api/newUser">
+        <div>
+            First name: <input type="text" name="first_name"/>
+        </div>
+        <div>
+            Last name: <input type="text" name="last_name"/>
+        </div>
+        <div>
+            Email: <input type="text" name="email"/>
+        </div>
+
+        <button class="btn">Submit</button>
+    </form>
+</div>
+
+<div>
+
+    <h1>Answer the questions</h1>
+    <form method="POST" action="/api/saveAnswer">
+
+
+        <div id="question" class="questions">
+
+        </div>
+
+        <button class="btn">Submit</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+<script>
+
+
+    /*fetch("/api/addUser")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("newUser").innerHTML = text;
+    });*/
+
+
+
+    fetch("/api/showQuestions").then(function(response) {
+        return response.text();
+    }).then(function (text) {
+        document.getElementById("question").innerHTML = text;
+    });
+
+
+
+
+</script>
+
+</html>
