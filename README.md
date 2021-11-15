@@ -1,4 +1,7 @@
+[![Survey Exam](https://github.com/kristiania-pgr203-2021/pgr203-exam-sani-bagh/actions/workflows/maven.yml/badge.svg)](https://github.com/kristiania-pgr203-2021/pgr203-exam-sani-bagh/actions/workflows/maven.yml)
+
 # PGR203 Avansert Java eksamen
+
 
 
 ## Beskriv hvordan programmet skal testes:
