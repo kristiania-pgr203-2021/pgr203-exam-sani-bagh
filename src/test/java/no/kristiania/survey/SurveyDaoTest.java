@@ -13,17 +13,6 @@ public class SurveyDaoTest {
 
 
 
-
-    @BeforeEach
-    void initialSave() throws SQLException {
-        for (int i=0; i < 4; i++) {
-            dao.save(exampleSurvey());
-        }
-
-    }
-
-
-
     @Test
     void shouldRetrieveSavedSurvey() throws SQLException {
         Survey survey = exampleSurvey();

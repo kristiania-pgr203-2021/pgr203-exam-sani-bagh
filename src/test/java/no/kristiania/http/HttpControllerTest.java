@@ -46,26 +46,27 @@ public class HttpControllerTest {
     }
 
 
+
+
     @Test
-    void shouldReturnSurveyTitleAsDropdownOptions() throws SQLException, IOException {
+    void shouldReturnSurveyOptions() throws IOException, SQLException {
+
         SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
-        Survey survey = new Survey();
-        Survey survey1 = new Survey();
-        Survey survey2 = new Survey();
-        survey.setTitle("Survey title 1");
-        survey1.setTitle("Survey title 2");
-        survey2.setTitle("Survey title 3");
-        surveyDao.save(survey);
-        surveyDao.save(survey1);
-        surveyDao.save(survey2);
 
         server.addController("/api/surveyOptions", new SurveyOptionsController(surveyDao));
 
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/surveyOptions");
+        HttpClient client = new HttpClient(
+                "localhost",
+                server.getPort(),
+                "/api/surveyOptions");
+        assertEquals(200, client.getStatusCode());
+        assertThat(surveyDao.listAll())
+                .anySatisfy(p -> {
+                    assertThat(p.getTitle()).isEqualTo("Survey title 1");
+                    //assertThat(p.getId()).isEqualTo(1L);
 
-        assertEquals("<option value=1>Survey title 1</option><option value=2>Survey title 2</option>" +
-                        "<option value=3>Survey title 3</option>",
-                client.getMessageBody());
+                });
+
     }
 
     @Test
@@ -112,6 +113,9 @@ public class HttpControllerTest {
 
         @BeforeEach
         void initialSave() throws SQLException {
+            for (int l = 0; l < 4; l++) {
+                answerDao.save(AnswerDaoTest.exampleAnswer());
+            }
             for (int i = 0; i < 4; i++) {
                 surveyDao.save(SurveyDaoTest.exampleSurvey());
             }
