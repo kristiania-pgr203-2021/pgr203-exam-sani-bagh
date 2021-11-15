@@ -46,6 +46,8 @@ public class HttpControllerTest {
     }
 
 
+    /*
+
     @Test
     void shouldReturnSurveyTitleAsDropdownOptions() throws SQLException, IOException {
         SurveyDao surveyDao = new SurveyDao(TestData.testDataSource());
@@ -104,6 +106,8 @@ public class HttpControllerTest {
                         "<option value=3>Question title 3</option>",
                 client.getMessageBody());
     }
+
+     */
 
 
 
