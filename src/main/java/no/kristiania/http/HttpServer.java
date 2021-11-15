@@ -23,14 +23,17 @@ public class HttpServer {
     }
 
     private void handleClients() {
-        while (true) {
-            try {
-                handleClient();
 
-            } catch (IOException | SQLException e) {
-               // e.printStackTrace();
-                System.out.println("500 internal server error");
+        try {
+            while (true) {
+                handleClient();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("500 Internal Server Error");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("500 Internal Server Error");
         }
     }
 
